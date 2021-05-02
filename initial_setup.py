@@ -42,7 +42,7 @@ if DATABASE in dblist:
     print("\U0001F44D", "Database 'TheInterviewMasterDeck' found!")
     collist = mongo_database.list_collection_names()
     if "admin" in collist:
-        print("\U0001F44D", "The collection 'admin' exists!.")
+        print("\U0001F44D", "The collection 'admin' found!")
 
     # Find Default Admin
     mongo_collection = mongo_database["admin"]
@@ -52,11 +52,11 @@ if DATABASE in dblist:
         print("Error accessing the database")
 
     if doc:
-        print("\U0001F44D", "The default admin account already exists! Setup complete!")
+        print("\U0001F44D", "Setup is already complete! Default admin account detected!")
         exit()
     if not doc:
         print("\U0001F449",
-              "The default admin does not yet exist. Will create this one now...")
+              "No default admin account detected. Will create this one now...")
         print('')
         print('')
         print("\U0001F9D1", "Details of the Admin account")
@@ -75,7 +75,7 @@ if DATABASE in dblist:
             }
             try:
                 mongo_collection.insert_one(new_doc)
-                print("\U0001F44F", "Admin created!")
+                print("\U0001F44F", "Your admin account has been created!")
             except:
                 print("Error accessing the database")
             mongo_collection = mongo_database["users"]
@@ -88,7 +88,7 @@ if DATABASE in dblist:
             }
             try:
                 mongo_collection.insert_one(new_doc)
-                print("\U0001F44F", "Users table created with generic user!")
+                print("\U0001F44F", "'users' collection created & added default user.")
             except:
                 print("Error accessing the database")
             mongo_collection = mongo_database["questions"]
@@ -100,12 +100,16 @@ if DATABASE in dblist:
             }
             try:
                 mongo_collection.insert_one(new_doc)
-                print("\U0001F44F", "Questions table created with default record!")
+                print("\U0001F44F",
+                      "'questions' collection created & added default record!")
             except:
                 print("Error accessing the database")
+            print('')
+            print("\U0001F37E",
+                  "Setup Complete. You may now login to http://<App>/admin")
         else:
-            print('Password does not match! Exiting...')
+            print('Password does not match! Please try again! Exiting...')
 else:
-    print("Database 'TheInterviewMasterDeck' does not exist. Please create one first before proceeding")
+    print("Database 'TheInterviewMasterDeck' not found. Please create a Database called 'TheInterviewMasterDeck' with a collection called 'admin' first before continuing. Exiting...")
 
 conn.close()
