@@ -3,6 +3,7 @@ if os.path.exists("env.py"):
     import env
 import pymongo
 import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # MongoDB Setup
 MONGO_URI = os.environ.get("MONGO_URI")
@@ -38,13 +39,24 @@ print('                                                                       De
 print('')
 print("Checking Database...")
 if DATABASE in dblist:
-    print("\U0001F44D", "Database 'TheInterviewMasterDeck' Exists!")
+    print("\U0001F44D", "Database 'TheInterviewMasterDeck' found!")
     collist = mongo_database.list_collection_names()
     if "admin" in collist:
-        print("\U0001F44D", "The collection 'admin' already exists.")
-    else:
-        print("\U0001F449", "The tables does not yet exists. Will create those now...")
-        mongo_collection = mongo_database["admin"]
+        print("\U0001F44D", "The collection 'admin' exists!.")
+
+    # Find Default Admin
+    mongo_collection = mongo_database["admin"]
+    try:
+        doc = mongo_collection.find_one({"id": 0})
+    except:
+        print("Error accessing the database")
+
+    if doc:
+        print("\U0001F44D", "The default admin account already exists! Setup complete!")
+        exit()
+    if not doc:
+        print("\U0001F449",
+              "The default admin does not yet exist. Will create this one now...")
         print('')
         print('')
         print("\U0001F9D1", "Details of the Admin account")
@@ -56,9 +68,10 @@ if DATABASE in dblist:
         print('')
         if admin_password == admin_password2:
             new_doc = {
+                "id": 0,
                 "name": admin_name,
                 "email": admin_email,
-                "password": admin_password
+                "password": generate_password_hash(admin_password)
             }
             try:
                 mongo_collection.insert_one(new_doc)
@@ -67,7 +80,7 @@ if DATABASE in dblist:
                 print("Error accessing the database")
             mongo_collection = mongo_database["users"]
             new_doc = {
-                "id": 1,
+                "id": 0,
                 "name": "User",
                 "email": "user@email.com",
                 "registration_date": date_today.strftime("%x"),
@@ -90,9 +103,9 @@ if DATABASE in dblist:
                 print("\U0001F44F", "Questions table created with default record!")
             except:
                 print("Error accessing the database")
-
         else:
             print('Password does not match! Exiting...')
-            conn.close()
 else:
     print("Database 'TheInterviewMasterDeck' does not exist. Please create one first before proceeding")
+
+conn.close()
