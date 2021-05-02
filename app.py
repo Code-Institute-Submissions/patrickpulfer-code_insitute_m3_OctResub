@@ -1,7 +1,10 @@
-from flask import Flask, render_template, request, flash
+from flask import (
+    Flask, flash, render_template,
+    redirect, request, session, url_for)
 import os
 if os.path.exists("env.py"):
     import env
+from werkzeug.security import generate_password_hash, check_password_hash
 import pymongo
 import logging
 
@@ -19,10 +22,10 @@ logging.info('app.py initalized!')
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
 
+
 # MongoDB Setup
 MONGO_URI = os.environ.get("MONGO_URI")
 DATABASE = "TheInterviewMasterDeck"
-COLLECTION = "Admin"
 
 
 def mongo_connect(url):
@@ -32,24 +35,66 @@ def mongo_connect(url):
         return conn
     except pymongo.errors.ConnectionFailure as e:
         logging.critical('Could not connect to MongoDB: %s', e)
-        print("Could not connect to MongoDB: %s") % e
 
 
+# Initial MongoDB connection
 conn = mongo_connect(MONGO_URI)
-coll = conn[DATABASE][COLLECTION]
+mongo_database = conn[DATABASE]
 logging.info('MongoDB Server version: %s', conn.server_info()["version"])
 
 
+# Logging and exit if main database is not detected
 dblist = conn.list_database_names()
 if DATABASE in dblist:
-    print("The database exists.")
+    logging.info("Database 'TheInterviewMasterDeck' detected!")
 else:
-    print('no')
+    logging.critical("Database 'TheInterviewMasterDeck' NOT detected!")
+    exit()
 
+
+#
+# App Routings
+#
 
 @app.route("/")
 def index():
     return render_template("index.html")
+
+
+@app.route("/admin", methods=["GET", "POST"])
+def admin():
+    mongo_collection = mongo_database["admin"]
+
+    # Login attempt = Post
+    if request.method == "POST":
+        existing_user = mongo_collection.find_one(
+            {"email": request.form.get("email").lower()})
+        print(request.form.get("email").lower())
+        print('Existing User: ', existing_user)
+        flash("Welcome back, " + existing_user["name"])
+        print(existing_user["name"])
+
+        if existing_user:
+            # ensure hashed password matches user input
+            if check_password_hash(
+                    existing_user["password"], request.form.get("password")):
+                logging.info('Admin Login attempt successful')
+                session["admin"] = existing_user["name"]
+                session["email"] = existing_user["email"]
+            else:
+                # password does not match
+                logging.warning(
+                    'Admin Login attempt failed with wrong password')
+                flash("Incorrect Email and/or Password")
+                return redirect(url_for("admin"))
+
+        else:
+            # username doesn't exist
+            flash("Incorrect Email and/or Password")
+            logging.warning('Admin Login attempt failed with incorrect email')
+            return redirect(url_for("admin"))
+
+    return render_template("admin.html")
 
 
 if __name__ == "__main__":
