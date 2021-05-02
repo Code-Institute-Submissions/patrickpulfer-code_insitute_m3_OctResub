@@ -64,9 +64,15 @@ def index():
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
     mongo_collection = mongo_database["admin"]
-
-    # Login attempt = Post
+    admin_logged = 0
+    #
+    # Login functionality for admin
+    #
+    # Functionality will log if attempt has been successful
+    # Template will adapt based on admin_logged variable
+    #
     if request.method == "POST":
+
         existing_user = mongo_collection.find_one(
             {"email": request.form.get("email").lower()})
         print(request.form.get("email").lower())
@@ -81,6 +87,7 @@ def admin():
                 logging.info('Admin Login attempt successful')
                 session["admin"] = existing_user["name"]
                 session["email"] = existing_user["email"]
+                admin_logged = 1
             else:
                 # password does not match
                 logging.warning(
@@ -94,7 +101,7 @@ def admin():
             logging.warning('Admin Login attempt failed with incorrect email')
             return redirect(url_for("admin"))
 
-    return render_template("admin.html")
+    return render_template("admin.html", admin_logged=admin_logged)
 
 
 if __name__ == "__main__":

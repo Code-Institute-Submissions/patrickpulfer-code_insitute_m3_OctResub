@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Login Page</h1>
+
+{% if admin_logged == 0 %}
 <section>
     <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('admin') }}">
         <div class="card-panel">
@@ -28,6 +30,6 @@
             </div>
         </div>
     </form>
-
 </section>
+{% endif %}
 {% endblock %}
