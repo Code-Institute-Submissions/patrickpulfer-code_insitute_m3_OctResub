@@ -2,6 +2,10 @@ body {
 	background-color: #547dbe;
 }
 
+footer {
+	background-color: #5d5d5d;
+}
+
 .grid-header {
 	grid-area: header;
 }
@@ -13,11 +17,9 @@ body {
 }
 .grid-info {
 	grid-area: info;
-	background-color: #50b653;
 }
 .grid-footer {
 	grid-area: footer;
-	background-color: #5d5d5d;
 }
 
 .grid-flash,
