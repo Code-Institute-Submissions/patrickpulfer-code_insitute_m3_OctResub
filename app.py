@@ -73,24 +73,17 @@ def admin():
     if request.method == "POST" and session.get('logged_in') == None:
         existing_user = mongo_collection.find_one(
             {"email": request.form.get("email").lower()})
-    #    print(request.form.get("email").lower())
-     #   print('###Existing User: ', existing_user)
-    #    flash("Welcome back, " + existing_user["name"])
-    #    print(existing_user["name"])
 
         if existing_user:
             # ensure hashed password matches user input
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
                 logging.info('Admin Login attempt successful')
+                flash("Welcome, {}".format(existing_user["name"]))
                 session["admin"] = existing_user["name"]
                 session["email"] = existing_user["email"]
-
-                # Debug
-                print('Existing User: ', existing_user["name"])
-                print('Existing Email: ', existing_user["email"])
-                flash("Welcome back, ", existing_user["name"])
                 session["logged_in"] = True
+
             else:
                 # password does not match
                 logging.warning(
@@ -103,8 +96,16 @@ def admin():
             flash("Incorrect Email and/or Password")
             logging.warning('Admin Login attempt failed with incorrect email')
             return redirect(url_for("admin"))
-    print('Session', session.get('logged_in'))
-    return render_template("admin.html", admin_logged=session.get('logged_in'))
+
+    return render_template("admin.html", admin_logged=session.get('logged_in'), admin_session=session)
+
+
+@app.route("/admin_logout")
+def logout():
+    # remove user from session cookie
+    flash("You have been logged out")
+    session.pop("logged_in")
+    return redirect(url_for("admin"))
 
 
 if __name__ == "__main__":
