@@ -1,3 +1,7 @@
+body {
+	background-color: #547dbe;
+}
+
 .grid-header {
 	grid-area: header;
 }
@@ -9,9 +13,11 @@
 }
 .grid-info {
 	grid-area: info;
+	background-color: #50b653;
 }
 .grid-footer {
 	grid-area: footer;
+	background-color: #5d5d5d;
 }
 
 .grid-flash,
@@ -28,7 +34,7 @@
 	.base-grid {
 		display: grid;
 		grid-template-columns: 9fr 3fr;
-		grid-template-rows: 1fr 1fr 8fr 2fr;
+		grid-template-rows: 1fr 1fr 9fr 1fr;
 		grid-template-areas:
 			"header header"
 			"flash flash"
@@ -57,4 +63,9 @@
 	.grid-flash {
 		margin-top: 1rem !important;
 	}
+}
+
+.grid-footer {
+	display: grid;
+	place-items: center;
 }

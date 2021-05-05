@@ -23,7 +23,7 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
 
 
-# MongoDB Setup
+# Initializing variables
 MONGO_URI = os.environ.get("MONGO_URI")
 DATABASE = "TheInterviewMasterDeck"
 
@@ -64,21 +64,19 @@ def index():
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
     mongo_collection = mongo_database["admin"]
-    admin_logged = 0
     #
     # Login functionality for admin
     #
     # Functionality will log if attempt has been successful
     # Template will adapt based on admin_logged variable
     #
-    if request.method == "POST":
-
+    if request.method == "POST" and session.get('logged_in') == None:
         existing_user = mongo_collection.find_one(
             {"email": request.form.get("email").lower()})
-        print(request.form.get("email").lower())
-        print('Existing User: ', existing_user)
-        flash("Welcome back, " + existing_user["name"])
-        print(existing_user["name"])
+    #    print(request.form.get("email").lower())
+     #   print('###Existing User: ', existing_user)
+    #    flash("Welcome back, " + existing_user["name"])
+    #    print(existing_user["name"])
 
         if existing_user:
             # ensure hashed password matches user input
@@ -87,7 +85,12 @@ def admin():
                 logging.info('Admin Login attempt successful')
                 session["admin"] = existing_user["name"]
                 session["email"] = existing_user["email"]
-                admin_logged = 1
+
+                # Debug
+                print('Existing User: ', existing_user["name"])
+                print('Existing Email: ', existing_user["email"])
+                flash("Welcome back, ", existing_user["name"])
+                session["logged_in"] = True
             else:
                 # password does not match
                 logging.warning(
@@ -100,8 +103,8 @@ def admin():
             flash("Incorrect Email and/or Password")
             logging.warning('Admin Login attempt failed with incorrect email')
             return redirect(url_for("admin"))
-
-    return render_template("admin.html", admin_logged=admin_logged)
+    print('Session', session.get('logged_in'))
+    return render_template("admin.html", admin_logged=session.get('logged_in'))
 
 
 if __name__ == "__main__":

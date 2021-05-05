@@ -3,37 +3,31 @@
 
 
 <article class="grid-main">
-    {% if admin_logged == 1 %}
+    {% if admin_logged == True %}
     {% endif %}
 
-    {% if admin_logged == 0 %}
-    <section>
-        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('admin') }}">
-            <div class="card-panel">
-                <!-- username -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="fas fa-user-cog prefix light-blue-text text-darken-4"></i>
-                        <input id="email" name="email" type="email" minlength="4" required>
-                        <label for="email">Email</label>
-                    </div>
-                </div>
-                <!-- passowrd -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="fas fa-user-lock prefix light-blue-text text-darken-4"></i>
-                        <input id="password" name="password" type="password" required>
-                        <label for="password">Password</label>
-                    </div>
-                </div>
-                <!-- login -->
-                <div class="row">
-                    <button type="submit" class="col s12 btn-large light-blue darken-4 text-shadow">
-                        Log In <i class="fas fa-sign-in-alt"></i>
-                    </button>
-                </div>
+    {% if admin_logged == None %}
+    <section class="container text-center">
+        <img src="{{ url_for('static', filename='/images/carddeck.png') }}" class="img-fluid" alt="Card Deck">
+        <br>
+        <h1>Admin Portal Login</h1>
+        <br>
+        <form class="row" method="POST" action="{{ url_for('admin') }}">
+            <div class="col-md-6">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your Email">
+            </div>
+            <div class="col-md-6">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password"
+                    placeholder="Enter your Password">
+            </div>
+            <br>
+            <div class="container">
+                <button type="submit" class="btn btn-success m-2">Login</button>
             </div>
         </form>
+
     </section>
     {% endif %}
 
