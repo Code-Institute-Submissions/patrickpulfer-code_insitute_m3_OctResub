@@ -9,5 +9,3 @@ $(document).ready(function () {
         $("#hidden_question_cards_grid").slideToggle("slow");
     });
 });
-
-

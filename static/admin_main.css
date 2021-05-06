@@ -90,12 +90,11 @@ footer {
 
 .cards_container {
 	display: flex;
-	justify-content: space-between;
 	flex-wrap: wrap;
 }
 .question_card {
 	max-width: 300px;
-	margin-bottom: 5px;
+	margin: 5px;
 	background-color: #f8f8ff;
 	color: white;
 }

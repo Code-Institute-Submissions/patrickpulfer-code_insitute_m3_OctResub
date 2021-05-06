@@ -8,33 +8,36 @@
     {% endif %}
 
     {% if admin_logged == None %}
-    <section class="container text-center">
-        <img src="{{ url_for('static', filename='/images/carddeck.png') }}" class="img-fluid" alt="Card Deck">
-        <br>
-        <h1>Admin Portal Login</h1>
-        <br>
-        <form class="row" method="POST" action="{{ url_for('admin') }}">
-            <div class="col-md-6">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your Email">
-            </div>
-            <div class="col-md-6">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password"
-                    placeholder="Enter your Password">
-            </div>
-            <br>
-            <div class="container">
-                <button type="submit" class="btn btn-success m-2">Login</button>
-            </div>
-        </form>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h2 class="text-success">Hidden Question Cards</h2>
+            <section class="container text-center">
+                <img src="{{ url_for('static', filename='/images/carddeck.png') }}" class="img-fluid" alt="Card Deck">
+                <br>
+                <form class="row" method="POST" action="{{ url_for('admin') }}">
+                    <div class="col-md-6">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your Email">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password"
+                            placeholder="Enter your Password">
+                    </div>
+                    <br>
+                    <div class="container">
+                        <button type="submit" class="btn btn-success m-2">Login</button>
+                    </div>
+                </form>
 
-    </section>
+            </section>
+        </div>
+    </div>
+
     {% endif %}
 
 </article>
 <aside class="grid-info">
-    Info
 </aside>
 
 {% endblock %}
