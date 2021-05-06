@@ -3,7 +3,8 @@ body {
 }
 
 footer {
-	background-color: #5d5d5d;
+	background-color: #5d5d5d !important;
+	color: white;
 }
 
 .grid-header {
@@ -29,7 +30,7 @@ footer {
 	margin: 0 1rem 1rem 1rem;
 	padding: 1rem;
 	background-color: white;
-	border-radius: 15px 50px;
+	border-radius: 15px;
 }
 
 @media (min-width: 576px) {
@@ -43,9 +44,10 @@ footer {
 			"main info"
 			"footer footer";
 		grid-auto-flow: column;
+		align-items: self-start;
 		gap: 1rem;
 
-		height: 100vh;
+		min-height: 100vh;
 		width: 100%;
 	}
 }
@@ -70,4 +72,14 @@ footer {
 .grid-footer {
 	display: grid;
 	place-items: center;
+}
+
+/* Admin Questions */
+
+.cards_container {
+	display: flex;
+	justify-content: space-between;
+}
+.question_card {
+	max-width: 300px;
 }

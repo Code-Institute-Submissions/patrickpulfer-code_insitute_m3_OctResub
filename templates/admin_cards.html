@@ -1,0 +1,57 @@
+{% extends "base-admin.html" %}
+{% block content %}
+
+
+
+<article class="grid-main">
+    <h2>Available Question Cards</h2>
+    <section class="container cards_container">
+        {% for card in cards %}
+        <div class="card question_card h-100">
+            <div class="card-body">
+                <h5 class="card-title">{{ card.question }}</h5>
+                <p class="card-text"><br>Tip: {{ card.tip }}</p>
+                <h6 class="card-subtitle mb-2 text-muted">Added {{ card.added_date }}</h6>
+            </div>
+            <div class="card-footer">
+                <a href="./admin_question_update/{{ card.id }}" class="btn btn-primary">Update</a>
+            </div>
+
+
+        </div>
+        {% endfor %}
+    </section>
+
+</article>
+<aside class="grid-info">
+    <p class="card-text display-3 text-center text-success">{{ cards|length }}</p>
+    <h3 class="card-text text-center">Number of Cards</h3>
+    <hr />
+    <div class="container-fluid">
+        <br>
+        <h3>Add a new Card</h3>
+        <br>
+        <form action="./admin_new_card/" method="POST" class="needs-validation" novalidate">
+            <div class="mb-3">
+                <label for="question" class="form-label">Question</label>
+                <textarea class="form-control" id="question" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Tip</label>
+                <textarea class="form-control" id="tip" rows="3" required></textarea>
+            </div>
+            <div class="form-check">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Visible?
+                </label>
+                <input class="form-check-input" type="checkbox" value="" id="visible">
+            </div>
+            <input type="hidden" id="id" name="id" value="{{ cards|length +1 }}">
+            <input type="hidden" id="date" name="date" value="{{ datetime }}">
+            <br>
+            <button class="btn btn-primary" type="submit">Add New Card</button>
+        </form>
+    </div>
+</aside>
+
+{% endblock %}

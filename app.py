@@ -7,6 +7,7 @@ if os.path.exists("env.py"):
 from werkzeug.security import generate_password_hash, check_password_hash
 import pymongo
 import logging
+import datetime
 
 # Setting up Logging
 logging.basicConfig(
@@ -26,6 +27,10 @@ app.secret_key = os.environ.get("SECRET_KEY")
 # Initializing variables
 MONGO_URI = os.environ.get("MONGO_URI")
 DATABASE = "TheInterviewMasterDeck"
+
+
+# Get Datetime
+date_today = datetime.datetime.now()
 
 
 def mongo_connect(url):
@@ -51,16 +56,19 @@ else:
     logging.critical("Database 'TheInterviewMasterDeck' NOT detected!")
     exit()
 
-
 #
 # App Routings
 #
+
+# Index
+
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
 
+# Admin
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
     mongo_collection = mongo_database["admin"]
@@ -100,12 +108,25 @@ def admin():
     return render_template("admin.html", admin_logged=session.get('logged_in'), admin_session=session)
 
 
+# Logout
 @app.route("/admin_logout")
 def logout():
     # remove user from session cookie
     flash("You have been logged out")
     session.pop("logged_in")
     return redirect(url_for("admin"))
+
+
+# Admin Questions
+@app.route("/admin_cards", methods=["GET", "POST"])
+def admin_cards():
+    # Check if admin is logged in
+    if session.get('logged_in') == True:
+        mongo_collection = mongo_database["questions"]
+        cards = list(mongo_collection.find())
+        return render_template("admin_cards.html", cards=cards, datetime=date_today.strftime("%x"))
+    else:
+        return admin()
 
 
 if __name__ == "__main__":
