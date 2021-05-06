@@ -1,0 +1,47 @@
+{% extends "base-admin.html" %}
+{% block content %}
+
+<article class="grid-main">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h2 class="text-success">Update Card</h2>
+            <br>
+            <form action="./admin_new_card" method="POST" class="needs-validation" novalidate">
+                <div class="mb-3">
+                    <label for="question" class="form-label text-dark">Question</label>
+                    <textarea class="form-control" id="question" name="question" rows="3"
+                        required>{{ card.question }}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label text-dark">Tip</label>
+                    <textarea class="form-control" id="tip" name="tip" rows="3" required>{{ card.tip }}</textarea>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label text-dark" for="visible">
+                        Visible?
+                    </label>
+                    <input class="form-check-input" type="checkbox" value="Yes" id="visible_update" name="visible">
+                </div>
+                <div class="mb-3 card-text">
+                    <br>Last Card ID: {{ card.id }}
+                    <br>Last System ID: {{ card._id }}
+                    <br>Last Update: {{ card.added_date }}
+                </div>
+                <input type="hidden" id="id" name="id" value="{{ cards|length +1 }}">
+                <input type="hidden" id="date" name="date" value="{{ datetime }}">
+                <br>
+                <button class="btn btn-primary" type="submit">Update Card</button>
+            </form>
+        </div>
+    </div>
+</article>
+
+<aside class="grid-info">
+</aside>
+<script>
+    if ('{{ card.visible }}' == 'Yes') {
+        $('#visible_update').prop('checked', true);
+    }
+</script>
+
+{% endblock %}

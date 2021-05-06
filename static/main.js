@@ -8,4 +8,11 @@ $(document).ready(function () {
     $(".toggle_hidden_cards").click(function () {
         $("#hidden_question_cards_grid").slideToggle("slow");
     });
+
+    /* Tick the checkbox in admin update card page IF value is visible */
+    if ('{{ card.visible }}' == 'Yes') {
+        $('#visible_update').prop('checked', true);
+    }
+
+
 });

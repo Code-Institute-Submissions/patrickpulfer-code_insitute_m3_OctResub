@@ -9,14 +9,17 @@ import pymongo
 import logging
 import datetime
 
-# Setting up Logging
+#
+# Setting up logging and create the file if it does not exist
+#
 logging.basicConfig(
     level=logging.DEBUG,
     format="{asctime} {levelname:<8} {message}",
-    style='{'
-    # filename='logs.log
-    # filemode='a'
+    style='{',
+    filename='logs.log',
+    filemode='a'
 )
+f = open("logs.log", "w+")
 logging.info('app.py initalized!')
 
 
@@ -113,6 +116,7 @@ def admin():
 def logout():
     # remove user from session cookie
     flash("You have been logged out")
+    logging.info('Admin Logout')
     session.pop("logged_in")
     return redirect(url_for("admin"))
 
@@ -146,9 +150,18 @@ def admin_new_card():
             }
             mongo_collection.insert_one(new_admin_card_details)
             flash("New Questions Card added!")
+            logging.info('Admin has added a new card')
             return redirect(url_for("admin_cards"))
         else:
             return admin()
+
+
+# Admin - Update CArd
+@app.route("/admin_card_update/<card_id>", methods=["GET", "POST"])
+def admin_card_update(card_id):
+    mongo_collection = mongo_database["questions"]
+    card = mongo_collection.find_one({"id": card_id})
+    return render_template("admin_card_update.html", card=card, datetime=date_today.strftime("%x"), admin_logged=session.get('logged_in'), admin_session=session)
 
 
 if __name__ == "__main__":

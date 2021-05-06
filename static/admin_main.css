@@ -37,7 +37,7 @@ footer {
 	.base-grid {
 		display: grid;
 		grid-template-columns: 9fr 3fr;
-		grid-template-rows: 1fr 1fr 9fr 1fr;
+		grid-template-rows: 0.5fr 0.5fr 8fr 0.5fr;
 		grid-template-areas:
 			"header header"
 			"flash flash"
@@ -46,8 +46,7 @@ footer {
 		grid-auto-flow: column;
 		align-items: self-start;
 		gap: 0.5rem;
-
-		min-height: 100vh;
+		min-height: 50%;
 		width: 100%;
 	}
 }
