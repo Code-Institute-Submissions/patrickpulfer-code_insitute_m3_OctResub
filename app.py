@@ -117,7 +117,7 @@ def logout():
     return redirect(url_for("admin"))
 
 
-# Admin Questions
+# Admin - Cards Overview
 @app.route("/admin_cards", methods=["GET", "POST"])
 def admin_cards():
     # Check if admin is logged in
@@ -127,6 +127,26 @@ def admin_cards():
         return render_template("admin_cards.html", cards=cards, datetime=date_today.strftime("%x"))
     else:
         return admin()
+
+
+# Admin - Add new card
+@app.route("/admin_new_card", methods=["GET", "POST"])
+def admin_new_card():
+    if request.method == "POST":
+        if session.get('logged_in') == True:
+            mongo_collection = mongo_database["questions"]
+            new_admin_card_details = {
+                "id": request.form.get("id"),
+                "question": request.form.get("question"),
+                "tip": request.form.get("tip"),
+                "visible": request.form.get("visible"),
+                "added_date": request.form.get("date")
+            }
+            mongo_collection.insert_one(new_admin_card_details)
+            flash("New Questions Card added!")
+            return redirect(url_for("admin_cards"))
+        else:
+            return admin()
 
 
 if __name__ == "__main__":

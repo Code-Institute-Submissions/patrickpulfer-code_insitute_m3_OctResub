@@ -79,6 +79,7 @@ footer {
 .cards_container {
 	display: flex;
 	justify-content: space-between;
+	flex-wrap: wrap;
 }
 .question_card {
 	max-width: 300px;
