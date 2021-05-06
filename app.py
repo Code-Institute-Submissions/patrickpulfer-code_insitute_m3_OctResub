@@ -123,8 +123,10 @@ def admin_cards():
     # Check if admin is logged in
     if session.get('logged_in') == True:
         mongo_collection = mongo_database["questions"]
-        cards = list(mongo_collection.find())
-        return render_template("admin_cards.html", cards=cards, datetime=date_today.strftime("%x"))
+        cards = list(mongo_collection.find({"visible": "Yes"}))
+        cards_not_visible = list(
+            mongo_collection.find({"visible": {'$ne': 'Yes'}}))
+        return render_template("admin_cards.html", cards=cards, cards_not_visible=cards_not_visible, datetime=date_today.strftime("%x"), admin_logged=session.get('logged_in'), admin_session=session)
     else:
         return admin()
 

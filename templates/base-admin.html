@@ -26,17 +26,17 @@
                     {% if admin_logged == True %}
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Users</a>
+                            <a class="nav-link" href="./admin">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./admin_cards">Cards</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" target="_blank" href="/">Public</a>
+                        </li>
                     </ul>
                     <div class="mr-auto">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-user"></i>
                             &nbsp;{{ admin_session["admin"] }}
@@ -54,16 +54,22 @@
 
 
     <section class="grid-flash">
-        <!-- flash messages -->
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        {% for message in messages %}
-        <div class="row flashes">
-            <h4 class="light-blue lighten-4 center-align">{{ message }}</h4>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <p class="text-success"><i class="fas fa-bullhorn"></i> System Messages</p>
+                <!-- flash messages -->
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+                <div class="row flashes">
+                    <p class="card-text text-dark center-align">{{ message }}</p>
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </div>
         </div>
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
+
     </section>
 
     {% block content %}
@@ -80,7 +86,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
 
 </html>
