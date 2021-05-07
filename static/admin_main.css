@@ -37,7 +37,7 @@ footer {
 	.base-grid {
 		display: grid;
 		grid-template-columns: 9fr 3fr;
-		grid-template-rows: 0.5fr 0.5fr 8fr 0.5fr;
+		grid-template-rows: 0.5fr 0.5fr 5.5fr 0.5fr;
 		grid-template-areas:
 			"header header"
 			"flash flash"
@@ -45,7 +45,7 @@ footer {
 			"footer footer";
 		grid-auto-flow: column;
 		align-items: self-start;
-		gap: 0.5rem;
+
 		min-height: 50%;
 		width: 100%;
 	}
@@ -60,7 +60,7 @@ footer {
 			"main"
 			"info"
 			"footer";
-		gap: 0.5rem;
+		gap: 0.1rem;
 	}
 
 	.grid-flash {
@@ -82,7 +82,7 @@ footer {
 }
 
 .card {
-	border-radius: 15px;
+	border-radius: 5px;
 }
 
 /* Admin Cards Page */

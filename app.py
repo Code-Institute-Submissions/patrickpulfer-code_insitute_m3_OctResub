@@ -1,13 +1,15 @@
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
+from bson.objectid import ObjectId
+from werkzeug.security import generate_password_hash, check_password_hash
 import os
 if os.path.exists("env.py"):
     import env
-from werkzeug.security import generate_password_hash, check_password_hash
 import pymongo
 import logging
 import datetime
+
 
 #
 # Setting up logging and create the file if it does not exist
@@ -156,12 +158,33 @@ def admin_new_card():
             return admin()
 
 
-# Admin - Update CArd
+# Admin - Update Card Page
 @app.route("/admin_card_update/<card_id>", methods=["GET", "POST"])
 def admin_card_update(card_id):
     mongo_collection = mongo_database["questions"]
     card = mongo_collection.find_one({"id": card_id})
     return render_template("admin_card_update.html", card=card, datetime=date_today.strftime("%x"), admin_logged=session.get('logged_in'), admin_session=session)
+
+
+# Admin - Update Card Execute
+@app.route("/admin_card_update_execute/<card_id>", methods=["GET", "POST"])
+def admin_card_update_execute(card_id):
+    if request.method == "POST":
+        if session.get('logged_in') == True:
+            mongo_collection = mongo_database["questions"]
+            submit = {
+                    "id": request.form.get("id"),
+                    "question": request.form.get("question"),
+                    "tip": request.form.get("tip"),
+                    "visible": request.form.get("visible"),
+                    "added_date": request.form.get("date")
+                    }
+            mongo_collection.update_one({"_id" : ObjectId(card_id)}, submit)
+            flash("Questions Card Modified")
+            logging.info('Card has been modified')
+            return redirect(url_for("admin_cards"))
+        else:
+            admin_cards()
 
 
 if __name__ == "__main__":
