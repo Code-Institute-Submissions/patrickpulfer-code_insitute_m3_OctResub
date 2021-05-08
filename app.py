@@ -173,18 +173,31 @@ def admin_card_update_execute(card_id):
         if session.get('logged_in') == True:
             mongo_collection = mongo_database["questions"]
             submit = {
-                    "id": request.form.get("id"),
-                    "question": request.form.get("question"),
-                    "tip": request.form.get("tip"),
-                    "visible": request.form.get("visible"),
-                    "added_date": request.form.get("date")
-                    }
-            mongo_collection.update_one({"_id" : ObjectId(card_id)}, submit)
+                "id": request.form.get("id"),
+                "question": request.form.get("question"),
+                "tip": request.form.get("tip"),
+                "visible": request.form.get("visible"),
+                "added_date": request.form.get("date")
+            }
+            mongo_collection.replace_one({"_id": ObjectId(card_id)}, submit)
             flash("Questions Card Modified")
             logging.info('Card has been modified')
             return redirect(url_for("admin_cards"))
         else:
-            admin_cards()
+            return admin()
+
+
+@app.route("/admin_card_delete/<card_id>", methods=["GET", "POST"])
+def admin_card_delete(card_id):
+    if request.method == "GET":
+        if session.get('logged_in') == True:
+            mongo_collection = mongo_database["questions"]
+            mongo_collection.delete_one({"_id": ObjectId(card_id)})
+            flash("Questions Card has been deleted")
+            logging.info('Card has been deleted')
+            return redirect(url_for("admin_cards"))
+        else:
+            admin()
 
 
 if __name__ == "__main__":
