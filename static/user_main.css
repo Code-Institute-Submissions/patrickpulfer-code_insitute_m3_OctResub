@@ -42,3 +42,14 @@ body {
 	height: 100%;
 	object-fit: cover;
 }
+
+footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background-color: #5d5d5d;
+	color: white;
+	text-align: center;
+	padding: 20px 0px;
+}

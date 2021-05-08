@@ -1,2 +1,27 @@
 {% extends "base-user.html" %}
 {% block content %}
+<section class="container-fluid text-center">
+    <br>
+    <div class="swiper-container mySwiper">
+        <div class="swiper-wrapper">
+            {% for card in cards %}
+            <div class="swiper-slide">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title text-primary text-start">{{ card.question }}</h3>
+                        <br><br>
+                        <i class="fas fa-stopwatch-20 fa-5x text-success"></i>
+                        <br><br>
+                        <p class="card-text text-start"><br>Tip: {{ card.tip }}</p>
+                        <br><br>
+                        <h6 class="card-subtitle mb-2 text-muted">Card: {{ card.id }}</h6>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

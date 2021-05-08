@@ -10,6 +10,7 @@ import pymongo
 import logging
 import datetime
 import markdown
+import random
 
 
 #
@@ -66,15 +67,26 @@ else:
 # App Routings
 #
 
+
 # Index
-
-
 @ app.route("/")
 def index():
     mongo_collection = mongo_database["settings"]
     doc_instructions = mongo_collection.find_one({"id": "instructions"})
     instructions = markdown.markdown(doc_instructions['text'])
     return render_template("index.html", instructions=instructions)
+
+
+# End User - Start
+@ app.route("/start")
+def start():
+    mongo_collection = mongo_database["questions"]
+    all_cards = mongo_collection.find({"visible": "Yes"})
+    objects = []
+    for object in all_cards:
+        objects.append(object)
+    random.shuffle(objects)
+    return render_template("start.html", cards=objects)
 
 
 # Admin
@@ -113,7 +125,6 @@ def admin():
             flash("Incorrect Email and/or Password")
             logging.warning('Admin Login attempt failed with incorrect email')
             return redirect(url_for("admin"))
-
     return render_template("admin.html", admin_logged=session.get('logged_in'), admin_session=session)
 
 
