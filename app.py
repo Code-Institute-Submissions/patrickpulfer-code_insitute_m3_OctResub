@@ -9,6 +9,7 @@ if os.path.exists("env.py"):
 import pymongo
 import logging
 import datetime
+import markdown
 
 
 #
@@ -68,13 +69,16 @@ else:
 # Index
 
 
-@app.route("/")
+@ app.route("/")
 def index():
-    return render_template("index.html")
+    mongo_collection = mongo_database["settings"]
+    doc_instructions = mongo_collection.find_one({"id": "instructions"})
+    instructions = markdown.markdown(doc_instructions['text'])
+    return render_template("index.html", instructions=instructions)
 
 
 # Admin
-@app.route("/admin", methods=["GET", "POST"])
+@ app.route("/admin", methods=["GET", "POST"])
 def admin():
     mongo_collection = mongo_database["admin"]
     #
@@ -114,7 +118,7 @@ def admin():
 
 
 # Logout
-@app.route("/admin_logout")
+@ app.route("/admin_logout")
 def logout():
     # remove user from session cookie
     flash("You have been logged out")
@@ -124,7 +128,7 @@ def logout():
 
 
 # Admin - Cards Overview
-@app.route("/admin_cards", methods=["GET", "POST"])
+@ app.route("/admin_cards", methods=["GET", "POST"])
 def admin_cards():
     # Check if admin is logged in
     if session.get('logged_in') == True:
@@ -138,7 +142,7 @@ def admin_cards():
 
 
 # Admin - Add new card
-@app.route("/admin_new_card", methods=["GET", "POST"])
+@ app.route("/admin_new_card", methods=["GET", "POST"])
 def admin_new_card():
     if request.method == "POST":
         if session.get('logged_in') == True:
@@ -159,7 +163,7 @@ def admin_new_card():
 
 
 # Admin - Update Card Page
-@app.route("/admin_card_update/<card_id>", methods=["GET", "POST"])
+@ app.route("/admin_card_update/<card_id>", methods=["GET", "POST"])
 def admin_card_update(card_id):
     mongo_collection = mongo_database["questions"]
     card = mongo_collection.find_one({"id": card_id})
@@ -167,7 +171,7 @@ def admin_card_update(card_id):
 
 
 # Admin - Update Card Execute
-@app.route("/admin_card_update_execute/<card_id>", methods=["GET", "POST"])
+@ app.route("/admin_card_update_execute/<card_id>", methods=["GET", "POST"])
 def admin_card_update_execute(card_id):
     if request.method == "POST":
         if session.get('logged_in') == True:
@@ -187,7 +191,7 @@ def admin_card_update_execute(card_id):
             return admin()
 
 
-@app.route("/admin_card_delete/<card_id>", methods=["GET", "POST"])
+@ app.route("/admin_card_delete/<card_id>", methods=["GET", "POST"])
 def admin_card_delete(card_id):
     if request.method == "GET":
         if session.get('logged_in') == True:
