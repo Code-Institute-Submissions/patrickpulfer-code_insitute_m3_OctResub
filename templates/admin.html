@@ -10,10 +10,11 @@
     {% if admin_logged == None %}
     <div class="card shadow-sm">
         <div class="card-body">
-            <h2 class="text-success">Hidden Question Cards</h2>
-            <section class="container text-center">
+            <h2 class="text-success">Admin Portal</h2>
+            <section class="container text-center text-dark">
                 <img src="{{ url_for('static', filename='/images/carddeck.png') }}" class="img-fluid" alt="Card Deck">
                 <br>
+                Please login with your Email and Password.
                 <form class="row" method="POST" action="{{ url_for('admin') }}">
                     <div class="col-md-6">
                         <label for="email">Email</label>

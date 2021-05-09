@@ -14,7 +14,11 @@ $(document).ready(function () {
         $('#visible_update').prop('checked', true);
     }
 
+    /* Don't start swiper if on admin page */
+    if (window.location.href.indexOf('admin') == -1) {
+        var swiper = new Swiper(".mySwiper", {});
+    }
 
-    var swiper = new Swiper(".mySwiper", {});
+
 
 });
