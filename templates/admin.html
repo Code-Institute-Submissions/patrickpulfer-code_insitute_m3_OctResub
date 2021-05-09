@@ -4,7 +4,42 @@
 
 <article class="grid-main">
     {% if admin_logged == True %}
-    <h5>Welcome, Please select an option from the Navigation Bar</h5>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h2 class="text-success">Settings</h2>
+            <br>
+            <section class="container-fluid">
+                <div class="card h-100 w-400 shadow-sm">
+                    <div class="card-body text-dark">
+                        <h5 class="card-title text-primary">Instructions</h5><br>
+                        <form action="/instructions_update" method="POST" class="needs-validation">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div>
+                                        <p>Instructions card can be modified below with Markdown syntax:</p>
+                                        <textarea class="form-control" id="instructions" name="instructions" rows="4"
+                                            required>{{ settings.text }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    Basic syntax:
+                                    <ul>
+                                        <li>&lt;br /&gt; -> Line Break</li>
+                                        <li>**text** -> Bold text</li>
+                                        <li>*text* -> Italic text</li>
+                                        <li># -> Title</li>
+                                        <li>## -> Subtitle</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-sm" type="submit">Update Instructions</button>
+                        </form>
+                    </div>
+                </div>
+        </div>
+        </section>
+    </div>
+    </div>
     {% endif %}
 
     {% if admin_logged == None %}

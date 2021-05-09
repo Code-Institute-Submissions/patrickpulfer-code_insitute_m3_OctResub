@@ -70,6 +70,7 @@ else:
     logging.critical("Database 'TheInterviewMasterDeck' NOT detected!")
     exit()
 
+
 #
 # App Routings
 #
@@ -99,6 +100,7 @@ def start():
 # Admin
 @ app.route("/admin", methods=["GET", "POST"])
 def admin():
+    settings = ''
     mongo_collection = mongo_database["admin"]
     #
     # Login functionality for admin
@@ -119,20 +121,20 @@ def admin():
                 session["admin"] = existing_user["name"]
                 session["email"] = existing_user["email"]
                 session["logged_in"] = True
-
             else:
                 # password does not match
                 logging.warning(
                     'Admin Login attempt failed with wrong password')
                 flash("Incorrect Email and/or Password")
                 return redirect(url_for("admin"))
-
         else:
             # username doesn't exist
             flash("Incorrect Email and/or Password")
             logging.warning('Admin Login attempt failed with incorrect email')
             return redirect(url_for("admin"))
-    return render_template("admin.html", admin_logged=session.get('logged_in'), admin_session=session)
+    mongo_collection = mongo_database["settings"]
+    settings = mongo_collection.find_one({"id": "instructions"})
+    return render_template("admin.html", admin_logged=session.get('logged_in'), admin_session=session, settings=settings)
 
 
 # Logout
@@ -180,7 +182,7 @@ def admin_new_card():
             return admin()
 
 
-# Admin - Update Card Page
+# Admin - Update Questions Card Page
 @ app.route("/admin_card_update/<card_id>", methods=["GET", "POST"])
 def admin_card_update(card_id):
     mongo_collection = mongo_database["questions"]
@@ -188,7 +190,7 @@ def admin_card_update(card_id):
     return render_template("admin_card_update.html", card=card, datetime=date_today.strftime("%x"), admin_logged=session.get('logged_in'), admin_session=session)
 
 
-# Admin - Update Card Execute
+# Admin - Update Questions Card Execute
 @ app.route("/admin_card_update_execute/<card_id>", methods=["GET", "POST"])
 def admin_card_update_execute(card_id):
     if request.method == "POST":
@@ -209,6 +211,7 @@ def admin_card_update_execute(card_id):
             return admin()
 
 
+# Admin - Delete Questions Card
 @ app.route("/admin_card_delete/<card_id>", methods=["GET", "POST"])
 def admin_card_delete(card_id):
     if request.method == "GET":
@@ -222,7 +225,20 @@ def admin_card_delete(card_id):
             index()
 
 
+# Admin - Update Settings
+@ app.route("/instructions_update", methods=["GET", "POST"])
+def instructions_update():
+    if session.get('logged_in') == True:
+        mongo_collection = mongo_database["settings"]
+        mongo_collection.replace_one({"id": "instructions"}, {"id": "instructions",
+                                                              "text": request.form.get("instructions")})
+        flash("Instructions updated")
+        logging.info('Instructions updated')
+    return admin()
+
 # User - Search Card by Keyword
+
+
 @ app.route("/search", methods=["GET", "POST"])
 def search():
     if request.method == "GET":
