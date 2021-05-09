@@ -5,6 +5,7 @@
     <br>
     <div class="swiper-container mySwiper">
         <div class="swiper-wrapper">
+            {% if cards|length %}
             {% for card in cards %}
             <div class="swiper-slide">
                 <div class="card shadow-sm">
@@ -20,6 +21,15 @@
                 </div>
             </div>
             {% endfor %}
+            {% else %}
+            <div class="swiper-slide">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title">No card with keyword found</h3>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
 </section>

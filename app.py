@@ -229,7 +229,10 @@ def search():
         mongo_collection = mongo_database["questions"]
         query = request.args.get("keyword")
         result = mongo_collection.find({"$text": {"$search": query}})
-        return render_template("search.html", cards=result)
+        objects = []
+        for object in result:
+            objects.append(object)
+        return render_template("search.html", cards=objects)
     else:
         return start()
 
