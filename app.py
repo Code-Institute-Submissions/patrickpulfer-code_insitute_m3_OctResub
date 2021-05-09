@@ -198,7 +198,7 @@ def admin_card_update_execute(card_id):
                 "id": request.form.get("id"),
                 "question": request.form.get("question"),
                 "tip": request.form.get("tip"),
-                "visible": request.form.get("visible"),
+                "visible": request.form.get("visible_update"),
                 "added_date": request.form.get("date")
             }
             mongo_collection.replace_one({"_id": ObjectId(card_id)}, submit)
@@ -228,8 +228,6 @@ def search():
     if request.method == "GET":
         mongo_collection = mongo_database["questions"]
         query = request.args.get("keyword")
-        print('Keyword: ')
-        print(request.args.get("keyword"))
         result = mongo_collection.find({"$text": {"$search": query}})
         return render_template("search.html", cards=result)
     else:

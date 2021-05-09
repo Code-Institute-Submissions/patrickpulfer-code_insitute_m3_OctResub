@@ -46,7 +46,6 @@
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="/admin_logout">Logout</a></li>
                         </ul>
-                        </li>
                     </div>
                     {% endif %}
                 </div>
@@ -58,7 +57,7 @@
     <section class="grid-flash">
         <div class="card shadow-sm">
             <div class="card-body">
-                <p class="text-success"><i class="fas fa-bullhorn"></i> System Messages</p>
+                <h6 class="text-success"><i class="fas fa-bullhorn"></i> System Messages</h6>
                 <!-- flash messages -->
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
@@ -78,9 +77,9 @@
     {% endblock %}
 
     <footer class="grid-footer">
-        <article class="container-fluid">
+        <div class="container-fluid">
             © 2021 Copyright: YourCoach.ie | Designed by: Patrick Pulfer
-        </article>
+        </div>
     </footer>
 
 
