@@ -2,6 +2,7 @@
 /*globals $:false, google */
 
 $(document).ready(function () {
+
     $("#hidden_question_cards_grid").toggle();
 
     /* Collapse Hidden Cards Card */
@@ -18,7 +19,5 @@ $(document).ready(function () {
     if (window.location.href.indexOf('admin') == -1) {
         var swiper = new Swiper(".mySwiper", {});
     }
-
-
 
 });
