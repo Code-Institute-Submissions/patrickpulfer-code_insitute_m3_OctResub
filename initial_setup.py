@@ -78,30 +78,31 @@ if DATABASE in dblist:
                 print("\U0001F44F", "Your admin account has been created!")
             except:
                 print("Error accessing the database")
-            mongo_collection = mongo_database["users"]
-            new_doc = {
-                "id": 0,
-                "name": "User",
-                "email": "user@email.com",
-                "registration_date": date_today.strftime("%x"),
-                "last_login_date": date_today.strftime("%x")
-            }
-            try:
-                mongo_collection.insert_one(new_doc)
-                print("\U0001F44F", "'users' collection created & added default user.")
-            except:
-                print("Error accessing the database")
+
             mongo_collection = mongo_database["questions"]
             new_doc = {
                 "id": 1,
-                "question": "Can you tell me about yourself?",
-                "tip": "When talking about yourself, focus on the professional YOU and how relevant you are for the job.",
-                "added_date": date_today.strftime("%x"),
+                "question": "Edit Me Question",
+                "tip": "Edit Me Tip.",
+                "visible": "Yes",
+                "added_date": date_today.strftime("%x")
             }
             try:
                 mongo_collection.insert_one(new_doc)
                 print("\U0001F44F",
                       "'questions' collection created & added default record!")
+            except:
+                print("Error accessing the database")
+
+            mongo_collection = mongo_database["settings"]
+            new_doc = {
+                "id": "instructions",
+                "text": "Edit me with Instructions",
+            }
+            try:
+                mongo_collection.insert_one(new_doc)
+                print("\U0001F44F",
+                      "'settings' collection created & added default record!")
             except:
                 print("Error accessing the database")
             print('')
