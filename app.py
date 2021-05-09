@@ -7,6 +7,7 @@ import os
 if os.path.exists("env.py"):
     import env
 import pymongo
+from pymongo import TEXT
 import logging
 import datetime
 import markdown
@@ -53,6 +54,12 @@ def mongo_connect(url):
 conn = mongo_connect(MONGO_URI)
 mongo_database = conn[DATABASE]
 logging.info('MongoDB Server version: %s', conn.server_info()["version"])
+mongo_collection = mongo_database["questions"]
+# Checks if text search index has already been created. If not, create one
+index_name = 'question_1'
+if index_name not in mongo_collection.index_information():
+    mongo_collection.create_index(name='question_1', keys=[
+                                  ('question', TEXT)], default_language='none')
 
 
 # Logging and exit if main database is not detected
@@ -212,7 +219,21 @@ def admin_card_delete(card_id):
             logging.info('Card has been deleted')
             return redirect(url_for("admin_cards"))
         else:
-            admin()
+            index()
+
+
+# User - Search Card by Keyword
+@ app.route("/search", methods=["GET", "POST"])
+def search():
+    if request.method == "GET":
+        mongo_collection = mongo_database["questions"]
+        query = request.args.get("keyword")
+        print('Keyword: ')
+        print(request.args.get("keyword"))
+        result = mongo_collection.find({"$text": {"$search": query}})
+        return render_template("search.html", cards=result)
+    else:
+        return start()
 
 
 if __name__ == "__main__":

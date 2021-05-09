@@ -53,3 +53,7 @@ footer {
 	text-align: center;
 	padding: 20px 0px;
 }
+
+#index_card {
+	max-width: 350px;
+}
