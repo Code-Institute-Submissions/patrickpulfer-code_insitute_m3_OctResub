@@ -127,4 +127,51 @@ If you are curious about the process of the development of this project, please 
      3. Click Connect to GitHub
      4. Provide your GitHub repository name, then click Search (example: https://github.com/patrickpulfer/code_insitute_m3)
      5. Click Deploy Branch on Heroku
-  4. Run the initial setup app: `python3 initial_setup.py` and provide your admin credentials
+  4. Run the initial setup app: `python3 initial_setup.py` and create your admin credentials
+- Local Installation (assuming your have python3 and pip3 installed on your machine; if not, install it now!)
+  1. You may deploy the repo locally. The follow instructions below are for a linux machine
+  2. Create a folder where you want the App to reside and navigate to it in your command line
+  3. Clone the App from Github:
+  ```bash
+  git init
+  git clone https://github.com/patrickpulfer/code_insitute_m3.git .
+  ```
+  4. Create an environment variable file called env.py and add the following:
+  ```python
+  import os
+  os.environ.setdefault("SECRET_KEY", "<your_secret_key_here>")
+  os.environ.setdefault(
+    "MONGO_URI", "<YOUR MONGO DB URI YOU HAVE NOTED EARLIER>")
+  ```
+  5. Install dependencies with PIP3:
+  ```bash
+  pip3 install -r requirements.txt
+  ```
+  6. Run the initial setup app and create your admin credentials:
+  ```bash
+  python3 initial_setup.py
+  ```
+  7. Run the App
+  ```bash
+  python3 app.py
+  ```
+
+## Credits
+
+### Copyright Content
+
+- The Interview Questions and the Instructions in the demo have been kindly provided by Aggie Pulfer from yourcoach.ie
+- The logo & Card Deck picture (carddeck.png) are copyright from yourcoach.ie and kindly provided by Aggie Pulfer
+
+### Media
+
+- The Wallpaper in Admin Portal is a free stock photo sourced from [Pexels](https://www.pexels.com/). Direct Link to image: https://www.pexels.com/photo/an-island-with-cottages-and-beach-chairs-1174732/
+
+- The Logo has been created in [Placeit](https://placeit.net/), a branding service I've used in the past
+- The picture replacing empty news items has been taken from [Pixbay](https://pixabay.com/illustrations/stop-corona-virus-coronavirus-mask-5032778/), a free images & royalty-free stock pictures website
+
+### Acknowledgements
+
+- I would like to thank [Code Institute](https://codeinstitute.net/) for the learning experience and all the support provided.
+- I would also like to thank Aggie Pulfer from yourcoach.ie for providing her real world business requirement and use-case
+- This is my first application written in Python with Flask. The usual applies (might not be most efficient code out there)
