@@ -68,5 +68,63 @@ This application has been built by using the following technologies:
 - Python Extensions:
   - [Python-Markdown](https://python-markdown.github.io/)
     - Python implementation of John Gruber’s Markdown.
+  - [Python Flask](https://flask.palletsprojects.com/)
+    - Flask is a lightweight WSGI web application framework.
+  - [DNSPython](https://www.dnspython.org/)
+    - Dnspython is a DNS toolkit for Python. It can be used for queries, zone transfers, dynamic updates, nameserver testing, and many other things.
+  - [PyMongo](https://pymongo.readthedocs.io/)
+    - PyMongo is a Python distribution containing tools for working with MongoDB, and is the recommended way to work with MongoDB from Python.
+  - [PIP3](https://pypi.org/) - The Python Package Index (PyPI) is a repository of software for the Python programming language.
+    <br><br>
 
-<br>
+## Development
+
+If you are curious about the process of the development of this project, please [click here](./documentation/development.md).
+<br><br>
+
+## Deployment
+
+### Demo
+
+- End User live demo available at https://the-interview-master-deck.herokuapp.com/
+- Admin Portal live demo available at https://the-interview-master-deck.herokuapp.com/admin (username: admin@admin.com, password: SuperSecret123!)
+
+### Requirements
+
+- A host capable to run python3 applications and PIP3, with internet access
+  - Example: https://www.heroku.com/
+- A host capable to run MongoDB with internet access
+  - Example: https://www.mongodb.com/
+
+### Steps
+
+- Database Server (Steps for MongoDB.com but consult with your host/provider for proper documentation)
+  1. [Create a database cluster](https://docs.atlas.mongodb.com/getting-started/)
+  2. [Create a user for your cluster](https://docs.atlas.mongodb.com/tutorial/create-mongodb-user-for-cluster/)
+     1. navigate to **Database Access** under _Security_ menu
+     2. SCRAM username and password should only be **alphanumeric** _(no special characters!)_
+     3. select **Read and Write to any Database** from _Database User Privileges_
+  3. Whitelist your IP
+     1. navigate to **Network Access** under _Security_ menu
+     2. select **Allow Access From Anywhere**
+     3. _supply IP Addresses of actual hosts further security_
+  4. [Create a database called 'TheInterviewMasterDeck', together with your first collection called 'admin'](https://docs.atlas.mongodb.com/tutorial/insert-data-into-your-cluster/)
+     1. - select **Add My Own Data** from the _Collections_ tab on your Cluster Sandbox
+  5. Navigate back to your cluster and click on 'connect' then 'connect your application'
+  6. Ensure Python is selected as your driver with version 3.6
+  7. Note your connection string, you will require to set this up in your environment variables at the App Server. <img src="./documentation/pictures/mongo1.png">
+- Application Server (Steps for Heroku.com but consult with your host/provider for proper documentation)
+  1. [Review official documentation for steps](https://devcenter.heroku.com/articles/getting-started-with-python)
+  2. Add the necessary environment variables to Heroku
+     1. Go to Heroku Settings Tab
+     2. Click Reveal Config Vars
+     3. Add the following: MONGO_URI = <Mongo URI, which you have noted earlier in MongoDB>
+     4. Add a new variable: SECRET_KEY = <create your own key, for testing secret-key is enough>
+     - Example: <img src="./documentation/pictures/heroku1.png">
+  3. Deploy the App directly from this github or a fork:
+     1. Go to the Deploy Tab
+     2. Click GitHub for Deployment Method
+     3. Click Connect to GitHub
+     4. Provide your GitHub repository name, then click Search (example: https://github.com/patrickpulfer/code_insitute_m3)
+     5. Click Deploy Branch on Heroku
+  4. Run the initial setup app: `python3 initial_setup.py` and provide your admin credentials
