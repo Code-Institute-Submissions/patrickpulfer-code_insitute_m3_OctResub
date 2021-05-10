@@ -28,6 +28,8 @@ Milestone 3 submission for [Code Insitute](https://codeinstitute.net)
   - Separate portal for admin to login
   - Card Management system to allow admin to easily delete, modify or add new cards
   - Ability to modify instructions with Markdown and HTML syntax
+- Application logs
+  - This app will create logs.log file containing logging information (no user data, just app debug)
 
 <br>
 
