@@ -15,11 +15,7 @@ Milestone 3 submission for [Code Insitute](https://codeinstitute.net)
 
 ## On-the-go app to help you prepare for most common interview questions
 
-<br>
-
----
-
-<br>
+## <br>
 
 ## Features
 
@@ -35,19 +31,25 @@ Milestone 3 submission for [Code Insitute](https://codeinstitute.net)
 
 <br>
 
-## Preview:
+### Preview:
 
 - Admin Panel  
   <img src="./documentation/pictures/admin_cards.png">
 
 - User App  
-   <img src="./documentation/pictures/end_user.png">
+  <img src="./documentation/pictures/end_user.png">
   <img src="./documentation/pictures/end_user3.png">
 
 - Installer  
-   <img src="./documentation/pictures/installer.png">
+  <img src="./documentation/pictures/installer.png">
 
-<br><br>
+<br>
+
+### Potential future feature roadmap
+
+- Progressive Web App
+- Ability for end users to login and save their preferred interview questions
+  <br><br>
 
 ## Technologies Used
 
