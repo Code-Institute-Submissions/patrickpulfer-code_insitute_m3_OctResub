@@ -13,7 +13,14 @@ Milestone 3 submission for [Code Insitute](https://codeinstitute.net)
 <img src="./static/images/carddeck.png">
 </p>
 
-## On-the-go app to help you prepare for most common interview questions
+### On-the-go app to help you prepare for most common interview questions
+
+<br>
+
+## Project Description
+
+- The Interview Master Deck is a digital card deck of common/general interview questions, designed for users to play on-the-go. The application is designed for mobile users in mind, allowing to quickly swipe trough cards with questions and hints with minimal effort. The pysical card version can be found at https://theinterviewmasterdeck.com/.
+- This project is my submission to the Milestone 3 project at Code Institute Full-Stack Software Development Diploma. For more information about the submission and project requirements, please visit [Development Documentation](./documentation/development.md).
 
 ## <br>
 
@@ -47,7 +54,7 @@ Milestone 3 submission for [Code Insitute](https://codeinstitute.net)
 
 <br>
 
-### Potential future feature roadmap
+### Potential future Feature Roadmap
 
 - Progressive Web App
 - Ability for end users to login and save their preferred interview questions
@@ -78,8 +85,10 @@ This application has been built by using the following technologies:
     - Dnspython is a DNS toolkit for Python. It can be used for queries, zone transfers, dynamic updates, nameserver testing, and many other things.
   - [PyMongo](https://pymongo.readthedocs.io/)
     - PyMongo is a Python distribution containing tools for working with MongoDB, and is the recommended way to work with MongoDB from Python.
-  - [PIP3](https://pypi.org/) - The Python Package Index (PyPI) is a repository of software for the Python programming language.
-    <br><br>
+  - [PIP3](https://pypi.org/)
+    - The Python Package Index (PyPI) is a repository of software for the Python programming language.
+
+<br>
 
 ## Development
 
@@ -159,6 +168,8 @@ If you are curious about the process of the development of this project, please 
   ```bash
   python3 app.py
   ```
+  Note: If you plan to deploy as an actual production server, you may want to look into [WSGI](https://wsgi.readthedocs.io/en/latest/what.html), [Gunicorn](https://gunicorn.org/) and a proper web server like NGINX.
+  <br><br>
 
 ## Credits
 
