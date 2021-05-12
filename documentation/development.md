@@ -204,6 +204,9 @@ Application has been designed with debugging in mind. In your main application f
 9. Once confirming, you should be re-directed to the Cards Management Page. Observe the deleted card missing and Python Flash message informing on the action as shown below:  
    <img src="./pictures/test7.png" width="40%">
 
+Note: If you have access to `logs.log`, you can to see the workflow being reflected in the debug logging"
+<br>
+
 ### Additional testing
 
 To test the update Interview Question Card functionality, you may click on "Update" of a Interview Question Card, change the text and click "Update". Once back at your Card Management page, you should see the particular question being altered.
@@ -211,3 +214,15 @@ To test the update Interview Question Card functionality, you may click on "Upda
 <br>
 
 ## Feedback from Stakeholders
+
+### Aggie, yourcoach.ie
+
+- _"I am very happy with the result and I am ready to recommend and use this app as a supporting tool for my coaching practices. The Admin Portal is very easy to navigate trough so no training required for me!"_
+
+### End User 1
+
+- _"Simple, does what I would want and no adds"_
+
+### End User 2
+
+- _"This is perfect! An app I'm not afraid to use because it does not distract me. Linking/Bookmark specific questions is a plus!!!"_
