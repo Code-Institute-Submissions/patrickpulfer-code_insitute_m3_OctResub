@@ -88,19 +88,22 @@ To be adhere to the structure outlined above, the following wireframes were draf
 - Admin Panel Screen  
   <img src="./pictures/wireframe_admin1.png" width="70%">
 
+As an important note, we want to draw the eyes to the middle of the screen.
+
 <br/>
 
 ### Surface Design
 
-To emphasize the origin of the project, decision was made to include a color scheme based on the green color as below:
+To emphasize the origin of the project and the company behind it, decision was made to include the color scheme that would best match the colors in the existing logo:
 
-- Main Color: <span style="color:#F3F0F1;background-color:#5C7D61;">#5C7D61</span>
-- Main ("white") background/font: <span style="color:#5C7D61;background-color:#F3F0F1;">#F3F0F1</span>
-- Dark Shades: <span style="color:#F3F0F1;background-color:#122D23;">#122D23</span>
-- Slightly lighter accent from main color: <span style="color:#F3F0F1;background-color:#8DB49E;">#8DB49E</span>
-- Slightly darker accent from main color: <span style="color:#F3F0F1;background-color:#7B9E8C;">#7B9E8C</span>
+- <img src="https://yourcoach.ie/resources/img/logos/logo_2020.png" width="5%">
 
-Note that fonts and main "white" background is not exactly white but an easier to the eyes color #F3F0F1.
+Color pallet:
+
+- Main Color (buttons & titles): <span style="color:#F3F0F1;background-color:#438657;"> #438657</span>
+- Main background:<span style="color:#white;background-color:#547dbe;"> #547dbe</span>
+- Blue Title (buttons & titles): <span style="color:#F3F0F1;background-color:#3A63F8;">#3A63F8</span>
+- Footer Background: <span style="color:#F3F0F1;background-color:#5d5d5d;">#5d5d5d</span>
 
 <br>
 

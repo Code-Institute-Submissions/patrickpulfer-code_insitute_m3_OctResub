@@ -47,7 +47,7 @@ Milestone 3 submission for [Code Insitute](https://codeinstitute.net)
 
 - User App  
   <img src="./documentation/pictures/end_user.png">
-  <img src="./documentation/pictures/end_user3.png">
+  <img src="./documentation/pictures/end_user4.png">
 
 - Installer  
   <img src="./documentation/pictures/installer.png">
