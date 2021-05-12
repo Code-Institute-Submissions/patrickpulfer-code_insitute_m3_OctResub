@@ -120,21 +120,94 @@ Color pallet:
 
 <br>
 
+## Debug Logging
+
+Application has been designed with debugging in mind. In your main application folder, you will find a file called `logs.log` which will contain similar information as below:
+
+```
+2021-05-12 21:13:12,267 INFO     Main application has been initalized!
+2021-05-12 21:13:12,364 INFO     MongoDB Connected successfully!
+2021-05-12 21:13:12,743 INFO     MongoDB Server version: 4.4.6
+2021-05-12 21:13:12,759 INFO     MongoDB Text Search index has already been created... skipping.
+2021-05-12 21:13:12,781 INFO     Database 'TheInterviewMasterDeck' detected in MongoDB!
+2021-05-12 21:13:12,785 INFO      * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2021-05-12 21:18:24,160 INFO     127.0.0.1 - - [12/May/2021 21:18:24] "[37mGET / HTTP/1.1[0m" 200 -
+2021-05-12 21:18:26,403 INFO     127.0.0.1 - - [12/May/2021 21:18:26] "[37mGET /start HTTP/1.1[0m" 200 -
+2021-05-12 21:18:35,912 INFO     127.0.0.1 - - [12/May/2021 21:18:35] "[37mGET /admin HTTP/1.1[0m" 200 -
+2021-05-12 21:18:35,930 INFO     127.0.0.1 - - [12/May/2021 21:18:35] "[36mGET /static/admin_main.css HTTP/1.1[0m" 304 -
+2021-05-12 21:18:36,009 INFO     127.0.0.1 - - [12/May/2021 21:18:36] "[37mGET /static/images/wallpaper.jpg HTTP/1.1[0m" 200 -
+2021-05-12 21:18:56,733 INFO     Admin Login attempt successful
+2021-05-12 21:18:56,753 INFO     127.0.0.1 - - [12/May/2021 21:18:56] "[37mPOST /admin HTTP/1.1[0m" 200 -
+2021-05-12 21:18:58,616 INFO     127.0.0.1 - - [12/May/2021 21:18:58] "[37mGET /admin_cards HTTP/1.1[0m" 200 -
+2021-05-12 21:19:01,974 INFO     127.0.0.1 - - [12/May/2021 21:19:01] "[37mGET /admin_card_update/11 HTTP/1.1[0m" 200 -
+2021-05-12 21:19:05,471 INFO     Questions Card has been deleted successfully
+2021-05-12 21:19:05,472 INFO     127.0.0.1 - - [12/May/2021 21:19:05] "[32mGET /admin_card_delete/609855be0f54ae446426e983 HTTP/1.1[0m" 302 -
+2021-05-12 21:19:05,518 INFO     127.0.0.1 - - [12/May/2021 21:19:05] "[37mGET /admin_cards HTTP/1.1[0m" 200 -
+```
+
 ## Bug Testing (Site functionalities)
 
-### Test 1 - Browser Compatibility
+### Test 1 - Browser & Device Compatibility
 
-### Test 2 - Device Compatibility
+- Main App has been tested with:
+  - Chrome on Android
+  - Safari on iOS
+  - Microsoft Edge for Linux, Chrome & Firefox on Desktop
+- Admin Page
+  - Chrome on Android
+  - Safari on iOS
+  - Microsoft Edge for Linux, Chrome & Firefox on Desktop
 
-### Test 3 - Errors at parsing HTML level
+### Test 3 - Errors at parsing HTML & CSS
 
-### Test 4 - Errors at anchoring level
+- Website has been tested at https://validator.w3.org/nu/ & https://jigsaw.w3.org/css-validator/ and showing no errors related to the app
+- https://jigsaw.w3.org/css-validator/ shows CSS errors specifically for external dependencies, which I can't fid on my own
 
-### Test 5 - Errors at form level
+### Test 4 - End User Flow
 
-### Report
+1. Navigate to App URL (http://the-interview-master-deck.herokuapp.com/ as example)
+2. Test swipe left:  
+   <img src="./pictures/test_user1.png" width="20%">
+3. Click on Start:  
+   <img src="./pictures/test_user2.png" width="20%">
+4. Swipe a few cards to the left and observe Cards being sorted randomly
+5. Click on "Search" button:  
+   <img src="./pictures/test_user3.png" width="20%">
+6. Enter a keyword in the text box, in this case "leaving" and click "Search:"  
+   <img src="./pictures/test_user4.png" width="20%">
+7. Observe all cards being displayed with the selected word "leaving":  
+   <img src="./pictures/test_user5.png" width="20%">
 
-- After several testing periods, end users have provided positive feedback.
-  <br>
+### Test 5 - Admin Login Flow
 
-## User Story / Feature Testing
+1. Navigate to the Admin Portal (http://the-interview-master-deck.herokuapp.com/admin as example)
+2. Enter your admin credentials created earlier during setup (Admin:SuperSecret123! for the demo) and click Login:  
+   <img src="./pictures/test_login1.png" width="50%">
+3. Observe login being successfully and Python Flash displaying the following message:  
+   <img src="./pictures/test_login2.png" width="20%">
+
+### Test 6 - Admin Question Cards Creation and Deletion Flow
+
+1. You should be logged into the Admin Portal
+2. Click on "Cards" in your top navigation bar
+3. On the right side at the screen, we will enter a test interview question as shown below:  
+   <img src="./pictures/test2.png" width="80%">
+4. After entering a test interview question, tick the box "Visible?" and then click "Add New Card"
+5. Observe the Python Flash message about the card creation and the new Interview Question Card appearing at the bottom of the list as shown below:
+   <img src="./pictures/test3.png" width="50%">
+6. Now on your mobile phone, navigate to the end user page (http://the-interview-master-deck.herokuapp.com/start), swipe trough a few Interview Question Cards and observe if the new question does appear as shown below:  
+   <img src="./pictures/test4.png" width="20%">
+7. Back in your Admin Portal, click on "Update" button on the newly created Interview Question Card. You should now see a new page as shown below:
+   <img src="./pictures/test5.png" width="70%">
+8. On this screen, click on "Delete Card". You should see a confirmation asking if you really want to delete the Interview Question Card. Click "OK":  
+   <img src="./pictures/test6.png" width="30%">
+9. Once confirming, you should be re-directed to the Cards Management Page. Observe the deleted card missing and Python Flash message informing on the action as shown below:  
+   <img src="./pictures/test7.png" width="40%">
+
+### Additional testing
+
+To test the update Interview Question Card functionality, you may click on "Update" of a Interview Question Card, change the text and click "Update". Once back at your Card Management page, you should see the particular question being altered.
+
+<br>
+
+## Feedback from Stakeholders
