@@ -24,13 +24,34 @@
 </section>
 
 <div class="container text-center">
-    <div class="card shadow-sm">
-        <form class="container" action="/search" method="GET">
-            Search: <input class="form-control form-control-sm" type="text" placeholder="Search by keyword"
-                name="keyword" id="keyword" required>
-            <button class="btn btn-success btn-sm" type="submit">Search</button>
-        </form>
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#searchmodal">
+        Search
+    </button>
+</div>
+
+<div class="modal fade" id="searchmodal" tabindex="-1" aria-labelledby="searchmodallabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="searchmodallabel">Search</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="container text-center" action="/search" method="GET">
+                    Enter your keyword to search for below:
+                    <br>
+                    <input class="form-control form-control-sm" type="text" placeholder="Keyword" name="keyword"
+                        id="keyword" required>
+                    <br>
+                    <button class="btn btn-success btn-sm" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
+
+
+
+
 
 {% endblock %}
