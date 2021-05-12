@@ -25,7 +25,7 @@ logging.basicConfig(
     filemode='a'
 )
 f = open("logs.log", "w+")
-logging.info('app.py initalized!')
+logging.info('Main application has been initalized!')
 
 
 app = Flask(__name__)
@@ -44,7 +44,7 @@ date_today = datetime.datetime.now()
 def mongo_connect(url):
     try:
         conn = pymongo.MongoClient(url)
-        logging.info('MongoDB Connected!')
+        logging.info('MongoDB Connected successfully!')
         return conn
     except pymongo.errors.ConnectionFailure as e:
         logging.critical('Could not connect to MongoDB: %s', e)
@@ -58,14 +58,19 @@ mongo_collection = mongo_database["questions"]
 # Checks if text search index has already been created. If not, create one
 index_name = 'question_1'
 if index_name not in mongo_collection.index_information():
+    logging.info(
+        'MongoDB Text Search index has not yet been created... creating.')
     mongo_collection.create_index(name='question_1', keys=[
                                   ('question', TEXT)], default_language='none')
+else:
+    logging.info(
+        'MongoDB Text Search index has already been created... skipping.')
 
 
 # Logging and exit if main database is not detected
 dblist = conn.list_database_names()
 if DATABASE in dblist:
-    logging.info("Database 'TheInterviewMasterDeck' detected!")
+    logging.info("Database 'TheInterviewMasterDeck' detected in MongoDB!")
 else:
     logging.critical("Database 'TheInterviewMasterDeck' NOT detected!")
     exit()
@@ -205,7 +210,7 @@ def admin_card_update_execute(card_id):
             }
             mongo_collection.replace_one({"_id": ObjectId(card_id)}, submit)
             flash("Questions Card Modified")
-            logging.info('Card has been modified')
+            logging.info('Questions Card has been modified')
             return redirect(url_for("admin_cards"))
         else:
             return admin()
@@ -219,9 +224,10 @@ def admin_card_delete(card_id):
             mongo_collection = mongo_database["questions"]
             mongo_collection.delete_one({"_id": ObjectId(card_id)})
             flash("Questions Card has been deleted")
-            logging.info('Card has been deleted')
+            logging.info('Questions Card has been deleted successfully')
             return redirect(url_for("admin_cards"))
         else:
+            logging.info('Card deletion has been attempted without a session')
             index()
 
 
@@ -236,9 +242,8 @@ def instructions_update():
         logging.info('Instructions updated')
     return admin()
 
+
 # User - Search Card by Keyword
-
-
 @ app.route("/search", methods=["GET", "POST"])
 def search():
     if request.method == "GET":
@@ -253,6 +258,7 @@ def search():
         return start()
 
 
+# Main App function
 if __name__ == "__main__":
     app.run(
         host=os.environ.get("IP", "0.0.0.0"),
