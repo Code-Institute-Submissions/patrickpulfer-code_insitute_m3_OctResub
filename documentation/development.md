@@ -88,7 +88,9 @@ To be adhere to the structure outlined above, the following wireframes were draf
 - Admin Panel Screen  
   <img src="./pictures/wireframe_admin1.png" width="70%">
 
-As an important note, we want to draw the eyes to the middle of the screen.
+Note:
+
+- Design has been implemented to draw end user to the middle of the screen
 
 <br/>
 
@@ -104,6 +106,13 @@ Color pallet:
 - Main background:<span style="color:#white;background-color:#547dbe;"> #547dbe</span>
 - Blue Title (buttons & titles): <span style="color:#F3F0F1;background-color:#3A63F8;">#3A63F8</span>
 - Footer Background: <span style="color:#F3F0F1;background-color:#5d5d5d;">#5d5d5d</span>
+
+<br>
+
+### Database Design
+
+| <img src="./pictures/db_admin.png"> | <img src="./pictures/db_questions.png"> | <img src="./pictures/db_settings.png"> |
+| ----------------------------------- | --------------------------------------- | -------------------------------------- |
 
 <br>
 
