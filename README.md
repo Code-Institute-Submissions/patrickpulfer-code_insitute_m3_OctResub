@@ -25,7 +25,6 @@ Milestone 3 submission for [Code Insitute](https://codeinstitute.net)
 ## Main URLs are (example with host):
 - https://the-interview-master-deck.herokuapp.com/ (end user app)
 - https://the-interview-master-deck.herokuapp.com/admin (Admin Portal)
--
 ## <br>
 
 ## Features
