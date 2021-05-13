@@ -22,6 +22,10 @@ Milestone 3 submission for [Code Insitute](https://codeinstitute.net)
 - The Interview Master Deck is a digital card deck of common/general interview questions, designed for users to play on-the-go. The application is designed for mobile users in mind, allowing to quickly swipe trough cards with questions and hints with minimal effort. The physical card version can be found at https://theinterviewmasterdeck.com/.
 - This project is my submission to the Milestone 3 project at Code Institute Full-Stack Software Development Diploma. For more information about the submission and project requirements, please visit [Development Documentation](./documentation/development.md).
 
+## Main URLs are (example with host):
+- https://the-interview-master-deck.herokuapp.com/ (end user app)
+- https://the-interview-master-deck.herokuapp.com/admin (Admin Portal)
+-
 ## <br>
 
 ## Features
