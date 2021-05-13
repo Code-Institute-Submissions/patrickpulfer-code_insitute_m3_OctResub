@@ -25,7 +25,7 @@ logging.basicConfig(
     filemode='a'
 )
 f = open("logs.log", "w+")
-logging.info('Main application has been initalized!')
+logging.info('Main application has been initialized!')
 
 
 app = Flask(__name__)

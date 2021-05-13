@@ -19,7 +19,7 @@ Milestone 3 submission for [Code Insitute](https://codeinstitute.net)
 
 ## Project Description
 
-- The Interview Master Deck is a digital card deck of common/general interview questions, designed for users to play on-the-go. The application is designed for mobile users in mind, allowing to quickly swipe trough cards with questions and hints with minimal effort. The pysical card version can be found at https://theinterviewmasterdeck.com/.
+- The Interview Master Deck is a digital card deck of common/general interview questions, designed for users to play on-the-go. The application is designed for mobile users in mind, allowing to quickly swipe trough cards with questions and hints with minimal effort. The physical card version can be found at https://theinterviewmasterdeck.com/.
 - This project is my submission to the Milestone 3 project at Code Institute Full-Stack Software Development Diploma. For more information about the submission and project requirements, please visit [Development Documentation](./documentation/development.md).
 
 ## <br>
@@ -72,7 +72,7 @@ This application has been built by using the following technologies:
 - [Bootstrap](https://getbootstrap.com/)
   - Front-end framework for web development.
 - [Swiper JS](https://swiperjs.com/)
-  - Javascript API to enable navigation by swipe
+  - JavaScript API to enable navigation by swipe
 - [Python](https://www.python.org/)
   - Python is a programming language that lets you work quickly
     and integrate systems more effectively
@@ -134,17 +134,17 @@ If you are curious about the process of the development of this project, please 
      3. Add the following: MONGO_URI = <Mongo URI, which you have noted earlier in MongoDB>
      4. Add a new variable: SECRET_KEY = <create your own key, for testing secret-key is enough>
      - Example: <img src="./documentation/pictures/heroku1.png">
-  3. Deploy the App directly from this github or a fork:
+  3. Deploy the App directly from this GitHub or a fork:
      1. Go to the Deploy Tab
      2. Click GitHub for Deployment Method
      3. Click Connect to GitHub
      4. Provide your GitHub repository name, then click Search (example: https://github.com/patrickpulfer/code_insitute_m3)
      5. Click Deploy Branch on Heroku
   4. Run the initial setup app: `python3 initial_setup.py` and create your admin credentials
-- Local Installation (assuming your have python3 and pip3 installed on your machine; if not, install it now!)
-  1. You may deploy the repo locally. The follow instructions below are for a linux machine
+- Local Installation (assuming you have python3 and pip3 installed on your machine; if not, install it now!)
+  1. You may deploy the repo locally. The follow instructions below are for a Linux machine
   2. Create a folder where you want the App to reside and navigate to it in your command line
-  3. Clone the App from Github:
+  3. Clone the App from GitHub:
   ```bash
   git init
   git clone https://github.com/patrickpulfer/code_insitute_m3.git .
@@ -189,4 +189,4 @@ If you are curious about the process of the development of this project, please 
 
 - I would like to thank [Code Institute](https://codeinstitute.net/) for the learning experience and all the support provided.
 - I would also like to thank Aggie Pulfer from yourcoach.ie for providing her real world business requirement and use-case
-- This is my first application written in Python with Flask. The usual applies (might not be most efficient code out there)
+- This is my first application written in Python with Flask. The usual applies (might not be the most efficient code out there)

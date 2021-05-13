@@ -107,7 +107,7 @@ if DATABASE in dblist:
                 print("Error accessing the database")
             print('')
             print("\U0001F37E",
-                  "Setup Complete. You may now login to http://<App>/admin")
+                  "Setup Complete. You may now log in to http://<App>/admin")
         else:
             print('Password does not match! Please try again! Exiting...')
 else:
