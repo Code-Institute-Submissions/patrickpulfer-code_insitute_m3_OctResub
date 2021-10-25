@@ -1,9 +1,8 @@
 import os
-if os.path.exists("env.py"):
-    import env
 import pymongo
 import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+
 
 # MongoDB Setup
 MONGO_URI = os.environ.get("MONGO_URI")
@@ -43,8 +42,6 @@ if DATABASE in dblist:
     collist = mongo_database.list_collection_names()
     if "admin" in collist:
         print("\U0001F44D", "The collection 'admin' found!")
-
-    # Find Default Admin
     mongo_collection = mongo_database["admin"]
     try:
         doc = mongo_collection.find_one({"id": 0})
@@ -54,7 +51,7 @@ if DATABASE in dblist:
     if doc:
         print("\U0001F44D", "Setup is already complete! Default admin account detected!")
         exit()
-    if not doc:
+    if doc:
         print("\U0001F449",
               "No default admin account detected. Will create this one now...")
         print('')
@@ -102,7 +99,18 @@ if DATABASE in dblist:
             try:
                 mongo_collection.insert_one(new_doc)
                 print("\U0001F44F",
-                      "'settings' collection created & added default record!")
+                      "'settings' collection created & added instruction field!")
+            except:
+                print("Error accessing the database")
+            
+            new_doc = {
+                "id": "cards_count",
+                "integer": 1,
+            }
+            try:
+                mongo_collection.insert_one(new_doc)
+                print("\U0001F44F",
+                      "'settings' collection updated with question cards count!")
             except:
                 print("Error accessing the database")
             print('')

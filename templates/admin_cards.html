@@ -51,9 +51,8 @@
         </div>
     </div>
 
-
-
 </article>
+
 <aside class="grid-info">
 
     <div class="card shadow-sm" style="background-color: #aa66cc">
@@ -85,7 +84,7 @@
                     </label>
                     <input class="form-check-input" type="checkbox" value="Yes" id="visible" name="visible">
                 </div>
-                <input type="hidden" id="id" name="id" value="{{ cards|length +1 }}">
+                <input type="hidden" id="id" name="id" value="{{ cards_count + 1}}">
                 <input type="hidden" id="date" name="date" value="{{ datetime }}">
                 <br>
                 <button class="btn btn-primary" type="submit">Add New Card</button>

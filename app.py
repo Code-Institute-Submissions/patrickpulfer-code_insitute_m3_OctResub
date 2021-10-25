@@ -1,22 +1,25 @@
-from flask import (
-    Flask, flash, render_template,
-    redirect, request, session, url_for)
-from bson.objectid import ObjectId
-from werkzeug.security import generate_password_hash, check_password_hash
 import os
-if os.path.exists("env.py"):
-    import env
 import pymongo
-from pymongo import TEXT
 import logging
 import datetime
 import markdown
 import random
+from pymongo import TEXT
+from flask import (
+    Flask, flash,
+    render_template,
+    redirect,
+    request,
+    session,
+    url_for
+)
+from bson.objectid import ObjectId
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
-#
-# Setting up logging and create the file if it does not exist
-#
+"""
+Logging mechanism to log actions to logs.log file
+"""
 logging.basicConfig(
     level=logging.DEBUG,
     format="{asctime} {levelname:<8} {message}",
@@ -32,16 +35,18 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
 
 
-# Initializing variables
+"""
+Setting initial variables
+"""
 MONGO_URI = os.environ.get("MONGO_URI")
 DATABASE = "TheInterviewMasterDeck"
-
-
-# Get Datetime
 date_today = datetime.datetime.now()
 
 
 def mongo_connect(url):
+    """
+    Setting up the Databae instance in MongoDB
+    """
     try:
         conn = pymongo.MongoClient(url)
         logging.info('MongoDB Connected successfully!')
@@ -50,7 +55,6 @@ def mongo_connect(url):
         logging.critical('Could not connect to MongoDB: %s', e)
 
 
-# Initial MongoDB connection
 conn = mongo_connect(MONGO_URI)
 mongo_database = conn[DATABASE]
 logging.info('MongoDB Server version: %s', conn.server_info()["version"])
@@ -60,8 +64,11 @@ index_name = 'question_1'
 if index_name not in mongo_collection.index_information():
     logging.info(
         'MongoDB Text Search index has not yet been created... creating.')
-    mongo_collection.create_index(name='question_1', keys=[
-                                  ('question', TEXT)], default_language='none')
+    mongo_collection.create_index(
+        name='question_1',
+        keys=[('question', TEXT)],
+        default_language='none'
+    )
 else:
     logging.info(
         'MongoDB Text Search index has already been created... skipping.')
@@ -139,7 +146,12 @@ def admin():
             return redirect(url_for("admin"))
     mongo_collection = mongo_database["settings"]
     settings = mongo_collection.find_one({"id": "instructions"})
-    return render_template("admin.html", admin_logged=session.get('logged_in'), admin_session=session, settings=settings)
+    return render_template(
+        "admin.html",
+        admin_logged=session.get('logged_in'),
+        admin_session=session,
+        settings=settings
+    )
 
 
 # Logout
@@ -160,8 +172,22 @@ def admin_cards():
         mongo_collection = mongo_database["questions"]
         cards = list(mongo_collection.find({"visible": "Yes"}))
         cards_not_visible = list(
-            mongo_collection.find({"visible": {'$ne': 'Yes'}}))
-        return render_template("admin_cards.html", cards=cards, cards_not_visible=cards_not_visible, datetime=date_today.strftime("%x"), admin_logged=session.get('logged_in'), admin_session=session)
+            mongo_collection.find({"visible": {'$ne': 'Yes'}})
+        )
+        mongo_collection = mongo_database["settings"]
+
+        cards_count = mongo_collection.find_one({"id": "cards_count"})
+        cards_count = cards_count['integer']
+
+        return render_template(
+            "admin_cards.html",
+            cards = cards,
+            cards_not_visible = cards_not_visible,
+            cards_count = cards_count,
+            datetime = date_today.strftime("%x"),
+            admin_logged = session.get('logged_in'),
+            admin_session = session
+        )
     else:
         return admin()
 
@@ -182,6 +208,20 @@ def admin_new_card():
             mongo_collection.insert_one(new_admin_card_details)
             flash("New Questions Card added!")
             logging.info('Admin has added a new card')
+
+
+            mongo_collection = mongo_database["settings"]
+            cards_count_collection = mongo_collection.find_one({"id": "cards_count"})
+            cards_count_incrementing = cards_count_collection['integer'] + 1
+            mongo_collection.replace_one(
+                {"id": "cards_count"},
+                {
+                    "id": "cards_count",
+                    "integer": cards_count_incrementing
+                },
+            )
+
+
             return redirect(url_for("admin_cards"))
         else:
             return admin()
@@ -192,7 +232,13 @@ def admin_new_card():
 def admin_card_update(card_id):
     mongo_collection = mongo_database["questions"]
     card = mongo_collection.find_one({"id": card_id})
-    return render_template("admin_card_update.html", card=card, datetime=date_today.strftime("%x"), admin_logged=session.get('logged_in'), admin_session=session)
+    return render_template(
+        "admin_card_update.html",
+        card=card,
+        datetime=date_today.strftime("%x"),
+        admin_logged=session.get('logged_in'),
+        admin_session=session
+    )
 
 
 # Admin - Update Questions Card Execute
@@ -236,8 +282,10 @@ def admin_card_delete(card_id):
 def instructions_update():
     if session.get('logged_in') == True:
         mongo_collection = mongo_database["settings"]
-        mongo_collection.replace_one({"id": "instructions"}, {"id": "instructions",
-                                                              "text": request.form.get("instructions")})
+        mongo_collection.replace_one(
+            {"id": "instructions"},
+            {"id": "instructions", "text": request.form.get("instructions")}
+        )
         flash("Instructions updated")
         logging.info('Instructions updated')
     return admin()
@@ -262,5 +310,6 @@ def search():
 if __name__ == "__main__":
     app.run(
         host=os.environ.get("IP", "0.0.0.0"),
-        port=int(os.environ.get("PORT", "5000")),
-        debug=False)
+        port=int(os.environ.get("PORT", "5001")),
+        debug=True
+    )

@@ -1,38 +1,36 @@
 {% extends "base-user.html" %}
 {% block content %}
-<section class="container-fluid text-center">
-    <div class="swiper-container mySwiper">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <div class="card m-2">
-                    <div class="card-body">
-                        <img src="{{ url_for('static', filename='/images/carddeck.png') }}"
-                            class="img-fluid mx-auto d-block" alt="Card Deck" id="index_card">
-                        <h6>
-                            Prepare for the most common interview questions, so you always have them on the top of your
-                            head.
-                        </h6>
-                        <br>
-                        <div class="text-success">
-                            <i class="fas fa-hand-point-left fa-2x"></i> Swipe Left
+    <section class="container-fluid text-center">
+        <div class="swiper-container mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="card m-2">
+                        <div class="card-body">
+                            <img src="{{ url_for('static', filename='/images/carddeck.png') }}"
+                                class="img-fluid mx-auto d-block" alt="Card Deck" id="index_card">
+                            <h6>
+                                Prepare for the most common interview questions, so you always have them on the top of your
+                                head.
+                            </h6>
+                            <br>
+                            <div class="text-success">
+                                <i class="fas fa-hand-point-left fa-2x"></i> Swipe Left
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card m-2">
+                        <div class="card-body text-start">
+                            <h4 class="text-primary text-center">Instructions</h4>
+                            <br>
+                            {{ instructions|safe }}
+                            <br>
+                            <div class="text-center"><a class="btn btn-success" href="/start">Start</a></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="swiper-slide">
-                <div class="card m-2">
-                    <div class="card-body text-start">
-                        <h4 class="text-primary text-center">Instructions</h4>
-                        <br>
-                        {{ instructions|safe }}
-                        <br>
-                        <div class="text-center"><a class="btn btn-success" href="/start">Start</a></div>
-                    </div>
-                </div>
-            </div>
         </div>
-
-    </div>
-</section>
-
+    </section>
 {% endblock %}
