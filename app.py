@@ -42,19 +42,15 @@ if os.environ.get("MONGO_URI") and os.environ.get("SECRET_KEY"):
     logging.info('Environmental variables found and loaded')
 else:
     logging.critical('Environmental variables NOT FOUND!')
-    logging.critical('Ensure environmental variables are set before running again!')
+    logging.critical(
+        'Ensure environmental variables are set before running again!')
     exit()
 
 
-"""
-Setting initial variables
-"""
-DATABASE = "TheInterviewMasterDeck"
-date_today = datetime.datetime.now()
-
-
 def mongo_connect(url):
-    """ Function to perform initial MongoDB connection
+    """
+    Function to perform initial MongoDB connection
+
     :type url:
     :param url:
     """
@@ -72,11 +68,12 @@ Initialization block:
     2. Will create a search index if not yet created
     3. Will detect if database has been setup
 """
+DATABASE = "TheInterviewMasterDeck"
+date_today = datetime.datetime.now()
 conn = mongo_connect(MONGO_URI)
 mongo_database = conn[DATABASE]
 logging.info('MongoDB Server version: %s', conn.server_info()["version"])
 mongo_collection = mongo_database["questions"]
-# Checks if text search index has already been created. If not, create one
 index_name = 'question_1'
 if index_name not in mongo_collection.index_information():
     logging.info(
@@ -94,7 +91,10 @@ if DATABASE in dblist:
     logging.info("Database 'TheInterviewMasterDeck' detected in MongoDB!")
 else:
     logging.critical("Database 'TheInterviewMasterDeck' NOT detected!")
-    logging.critical("Ensure you have followed https://github.com/patrickpulfer/code_insitute_m3#steps")
+    logging.critical(
+        "Ensure you have followed \
+        https://github.com/patrickpulfer/code_insitute_m3#steps"
+    )
     exit()
 
 
@@ -105,7 +105,7 @@ App Routings
 
 @ app.route("/")
 def index():
-    """ 
+    """
     End User Index Page
     """
     mongo_collection = mongo_database["settings"]
@@ -116,7 +116,7 @@ def index():
 
 @ app.route("/start")
 def start():
-    """ 
+    """
     End User Start the Game Page
     """
     mongo_collection = mongo_database["questions"]
@@ -130,14 +130,15 @@ def start():
 
 @ app.route("/admin", methods=["GET", "POST"])
 def admin():
-    """ 
+    """
     Admin Page function:
-        1. Will attempt login procedures (compare admin & password hash) if user is not yet logged in and method is POST
+        1. Will attempt login procedures (compare admin & password hash)
+            if user is not yet logged in and method is POST
         2. Will display the admin console if admin is logged in
     """
     settings = ''
     mongo_collection = mongo_database["admin"]
-    if request.method == "POST" and session.get('logged_in') == None:
+    if request.method == "POST" and session.get('logged_in') is None:
         existing_user = mongo_collection.find_one(
             {"email": request.form.get("email").lower()})
         if existing_user:
@@ -169,7 +170,7 @@ def admin():
 
 @ app.route("/admin_logout")
 def logout():
-    """ 
+    """
     Logout function
     """
     flash("You have been logged out")
@@ -180,12 +181,12 @@ def logout():
 
 @ app.route("/admin_cards", methods=["GET", "POST"])
 def admin_cards():
-    """ 
+    """
     Admin Cards Overview Page:
         1. Will check if logged in, then show page
         2. Will get values from database for template render
     """
-    if session.get('logged_in') == True:
+    if session.get('logged_in') is True:
         mongo_collection = mongo_database["questions"]
         cards = list(mongo_collection.find({"visible": "Yes"}))
         cards_not_visible = list(
@@ -196,12 +197,12 @@ def admin_cards():
         cards_count = cards_count['integer']
         return render_template(
             "admin_cards.html",
-            cards = cards,
-            cards_not_visible = cards_not_visible,
-            cards_count = cards_count,
-            datetime = date_today.strftime("%x"),
-            admin_logged = session.get('logged_in'),
-            admin_session = session
+            cards=cards,
+            cards_not_visible=cards_not_visible,
+            cards_count=cards_count,
+            datetime=date_today.strftime("%x"),
+            admin_logged=session.get('logged_in'),
+            admin_session=session
         )
     else:
         return admin()
@@ -209,13 +210,13 @@ def admin_cards():
 
 @ app.route("/admin_new_card", methods=["GET", "POST"])
 def admin_new_card():
-    """ 
+    """
     Question Card Creation:
         1. Will check if logged in and method is POST
         2. Will attempt to add the new card & update the card counter
     """
     if request.method == "POST":
-        if session.get('logged_in') == True:
+        if session.get('logged_in') is True:
             mongo_collection = mongo_database["questions"]
             new_admin_card_details = {
                 "id": request.form.get("id"),
@@ -228,7 +229,8 @@ def admin_new_card():
             flash("New Questions Card added!")
             logging.info('Admin has added a new card')
             mongo_collection = mongo_database["settings"]
-            cards_count_collection = mongo_collection.find_one({"id": "cards_count"})
+            cards_count_collection = mongo_collection.find_one(
+                {"id": "cards_count"})
             cards_count_incrementing = cards_count_collection['integer'] + 1
             mongo_collection.replace_one(
                 {"id": "cards_count"},
@@ -244,7 +246,7 @@ def admin_new_card():
 
 @ app.route("/admin_card_update/<card_id>", methods=["GET", "POST"])
 def admin_card_update(card_id):
-    """ 
+    """
     Questions Card Update Form
     """
     mongo_collection = mongo_database["questions"]
@@ -269,7 +271,7 @@ def admin_card_update_execute(card_id):
         :param card_id:
     """
     if request.method == "POST":
-        if session.get('logged_in') == True:
+        if session.get('logged_in') is True:
             mongo_collection = mongo_database["questions"]
             submit = {
                 "id": request.form.get("id"),
@@ -279,8 +281,10 @@ def admin_card_update_execute(card_id):
                 "added_date": request.form.get("date")
             }
             mongo_collection.replace_one({"_id": ObjectId(card_id)}, submit)
-            flash("Questions Card %s has been updated." % request.form.get("id"))
-            logging.info('Questions Card %s has been updated.' % request.form.get("id"))
+            flash("Questions Card %s has been updated." %
+                  request.form.get("id"))
+            logging.info('Questions Card %s has been updated.' %
+                         request.form.get("id"))
             return redirect(url_for("admin_cards"))
         else:
             return admin()
@@ -288,14 +292,14 @@ def admin_card_update_execute(card_id):
 
 @ app.route("/admin_card_delete/<card_id>", methods=["GET", "POST"])
 def admin_card_delete(card_id):
-    """ 
+    """
     Questions Card Update Form
 
     :type card_id:
     :param card_id:
     """
     if request.method == "GET":
-        if session.get('logged_in') == True:
+        if session.get('logged_in') is True:
             mongo_collection = mongo_database["questions"]
             mongo_collection.delete_one({"_id": ObjectId(card_id)})
             flash("Questions Card with _id %s been deleted." % card_id)
@@ -308,10 +312,10 @@ def admin_card_delete(card_id):
 
 @ app.route("/instructions_update", methods=["GET", "POST"])
 def instructions_update():
-    """ 
+    """
     Instructions Update Form
     """
-    if session.get('logged_in') == True:
+    if session.get('logged_in') is True:
         mongo_collection = mongo_database["settings"]
         mongo_collection.replace_one(
             {"id": "instructions"},
@@ -324,7 +328,7 @@ def instructions_update():
 
 @ app.route("/search", methods=["GET", "POST"])
 def search():
-    """ 
+    """
     End User Question Card Search
     """
     if request.method == "GET":
