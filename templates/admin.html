@@ -1,78 +1,77 @@
 {% extends "base-admin.html" %}
 {% block content %}
 
-
-<article class="grid-main">
-    {% if admin_logged == True %}
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <h2 class="text-success">Settings</h2>
-            <br>
-            <section class="container-fluid">
-                <div class="card h-100 w-400 shadow-sm">
-                    <div class="card-body text-dark">
-                        <h5 class="card-title text-primary">Instructions</h5><br>
-                        <form action="/instructions_update" method="POST" class="needs-validation">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div>
-                                        <p>Instructions card can be modified below with Markdown syntax:</p>
-                                        <textarea class="form-control" id="instructions" name="instructions" rows="4"
-                                            required>{{ settings.text }}</textarea>
+    <article class="grid-main">
+        {% if admin_logged == True %}
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="text-success">Settings</h2>
+                <br>
+                <section class="container-fluid">
+                    <div class="card h-100 w-400 shadow-sm">
+                        <div class="card-body text-dark">
+                            <h5 class="card-title text-primary">Instructions</h5><br>
+                            <form action="/instructions_update" method="POST" class="needs-validation">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div>
+                                            <p>Instructions card can be modified below with Markdown syntax:</p>
+                                            <textarea class="form-control" id="instructions" name="instructions" rows="4"
+                                                required>{{ settings.text }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        Basic syntax:
+                                        <ul>
+                                            <li>&lt;br /&gt; -> Line Break</li>
+                                            <li>**text** -> Bold text</li>
+                                            <li>*text* -> Italic text</li>
+                                            <li># -> Title</li>
+                                            <li>## -> Subtitle</li>
+                                        </ul>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    Basic syntax:
-                                    <ul>
-                                        <li>&lt;br /&gt; -> Line Break</li>
-                                        <li>**text** -> Bold text</li>
-                                        <li>*text* -> Italic text</li>
-                                        <li># -> Title</li>
-                                        <li>## -> Subtitle</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <button class="btn btn-primary btn-sm" type="submit">Update Instructions</button>
-                        </form>
+                                <button class="btn btn-primary btn-sm" type="submit">Update Instructions</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </div>
-    </div>
-    {% endif %}
+        {% endif %}
 
-    {% if admin_logged == None %}
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <h2 class="text-success">Admin Portal</h2>
-            <section class="container text-center text-dark">
-                <img src="{{ url_for('static', filename='/images/carddeck.png') }}" class="img-fluid" alt="Card Deck">
-                <br>
-                Please login with your Email and Password.
-                <form class="row" method="POST" action="{{ url_for('admin') }}">
-                    <div class="col-md-6">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your Email">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password"
-                            placeholder="Enter your Password">
-                    </div>
+        {% if admin_logged == None %}
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="text-success">Admin Portal</h2>
+                <section class="container text-center text-dark">
+                    <img src="{{ url_for('static', filename='/images/carddeck.png') }}" class="img-fluid" alt="Card Deck">
                     <br>
-                    <div class="container">
-                        <button type="submit" class="btn btn-success m-2">Login</button>
-                    </div>
-                </form>
+                    Please login with your Email and Password.
+                    <form class="row" method="POST" action="{{ url_for('admin') }}">
+                        <div class="col-md-6">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your Email">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password"
+                                placeholder="Enter your Password">
+                        </div>
+                        <br>
+                        <div class="container">
+                            <button type="submit" class="btn btn-success m-2">Login</button>
+                        </div>
+                    </form>
 
-            </section>
+                </section>
+            </div>
         </div>
-    </div>
 
-    {% endif %}
+        {% endif %}
 
-</article>
-<aside class="grid-info">
-</aside>
+    </article>
+    <aside class="grid-info">
+    </aside>
 
 {% endblock %}

@@ -1,52 +1,52 @@
 {% extends "base-admin.html" %}
 {% block content %}
 
-<article class="grid-main">
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <h2 class="text-success">Update Card</h2>
-            <br>
-            <form action="/admin_card_update_execute/{{ card._id }}" method="POST" class="needs-validation">
-                <div class="mb-3">
-                    <label for="question" class="form-label text-dark">Question</label>
-                    <textarea class="form-control" id="question" name="question" rows="3"
-                        required>{{ card.question }}</textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="tip" class="form-label text-dark">Tip</label>
-                    <textarea class="form-control" id="tip" name="tip" rows="3" required>{{ card.tip }}</textarea>
-                </div>
-                <div class="form-check">
-                    <label class="form-check-label text-dark" for="visible_update">
-                        Visible?
-                    </label>
-                    <input class="form-check-input" type="checkbox" value="Yes" id="visible_update"
-                        name="visible_update">
-                </div>
-                <div class="mb-3 card-text">
-                    <br>Last Card ID: {{ card.id }}
-                    <br>Last System ID: {{ card._id }}
-                    <br>Last Update: {{ card.added_date }}
-                </div>
-                <input type="hidden" id="id" name="id" value="{{ card.id }}">
-                <input type="hidden" id="date" name="date" value="{{ datetime }}">
-                <input type="hidden" id="_id" name="date" value="{{ card._id  }}">
+    <article class="grid-main">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="text-success">Update Card</h2>
                 <br>
-                <button class="btn btn-primary" type="submit">Update Card</button>
-                <a class="btn btn-danger" href="/admin_card_delete/{{ card._id  }}"
-                    onclick="return confirm('Are you sure you want to delete this card?');">Delete Card</a>
-                <a class="btn btn-warning" href="/admin_cards">Back</a>
-            </form>
+                <form action="/admin_card_update_execute/{{ card._id }}" method="POST" class="needs-validation">
+                    <div class="mb-3">
+                        <label for="question" class="form-label text-dark">Question</label>
+                        <textarea class="form-control" id="question" name="question" rows="3"
+                            required>{{ card.question }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tip" class="form-label text-dark">Tip</label>
+                        <textarea class="form-control" id="tip" name="tip" rows="3" required>{{ card.tip }}</textarea>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label text-dark" for="visible_update">
+                            Visible?
+                        </label>
+                        <input class="form-check-input" type="checkbox" value="Yes" id="visible_update"
+                            name="visible_update">
+                    </div>
+                    <div class="mb-3 card-text">
+                        <br>Last Card ID: {{ card.id }}
+                        <br>Last System ID: {{ card._id }}
+                        <br>Last Update: {{ card.added_date }}
+                    </div>
+                    <input type="hidden" id="id" name="id" value="{{ card.id }}">
+                    <input type="hidden" id="date" name="date" value="{{ datetime }}">
+                    <input type="hidden" id="_id" name="date" value="{{ card._id  }}">
+                    <br>
+                    <button class="btn btn-primary" type="submit">Update Card</button>
+                    <a class="btn btn-danger" href="/admin_card_delete/{{ card._id  }}"
+                        onclick="return confirm('Are you sure you want to delete this card?');">Delete Card</a>
+                    <a class="btn btn-warning" href="/admin_cards">Back</a>
+                </form>
+            </div>
         </div>
-    </div>
-</article>
+    </article>
 
-<aside class="grid-info">
-</aside>
-<script>
-    if ('{{ card.visible }}' == 'Yes') {
-        $('#visible_update').prop('checked', true);
-    }
-</script>
+    <aside class="grid-info">
+    </aside>
+    <script>
+        if ('{{ card.visible }}' == 'Yes') {
+            $('#visible_update').prop('checked', true);
+        }
+    </script>
 
 {% endblock %}

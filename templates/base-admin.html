@@ -1,93 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Interview Master Deck</title>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
-        integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ url_for('static', filename='admin_main.css') }}" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>The Interview Master Deck</title>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+            integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', filename='admin_main.css') }}" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    </head>
 
-<body class="base-grid">
-    <header class="grid-header">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/admin">TheInterviewMasterDeck</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
-                    aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbar">
-                    {% if admin_logged == True %}
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin_cards">Cards</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" target="_blank" href="/">Public</a>
-                        </li>
-                    </ul>
-                    <div class="mr-auto">
-                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user"></i>
-                            &nbsp;{{ admin_session["admin"] }}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/admin_logout">Logout</a></li>
+    <body class="base-grid">
+        <header class="grid-header">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/admin">TheInterviewMasterDeck</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+                        aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbar">
+                        {% if admin_logged == True %}
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin_cards">Cards</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" target="_blank" href="/">Public</a>
+                            </li>
                         </ul>
+                        <div class="mr-auto">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user"></i>
+                                &nbsp;{{ admin_session["admin"] }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/admin_logout">Logout</a></li>
+                            </ul>
+                        </div>
+                        {% endif %}
                     </div>
+                </div>
+            </nav>
+        </header>
+
+
+        <section class="grid-flash">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-success"><i class="fas fa-bullhorn"></i> System Messages</h6>
+                    <!-- flash messages -->
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="row flashes">
+                        <p class="card-text text-dark center-align">{{ message }}</p>
+                    </div>
+                    {% endfor %}
                     {% endif %}
+                    {% endwith %}
                 </div>
             </div>
-        </nav>
-    </header>
 
+        </section>
 
-    <section class="grid-flash">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h6 class="text-success"><i class="fas fa-bullhorn"></i> System Messages</h6>
-                <!-- flash messages -->
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                {% for message in messages %}
-                <div class="row flashes">
-                    <p class="card-text text-dark center-align">{{ message }}</p>
-                </div>
-                {% endfor %}
-                {% endif %}
-                {% endwith %}
+        {% block content %}
+        {% endblock %}
+
+        <footer class="grid-footer">
+            <div class="container-fluid">
+                © 2021 Copyright: YourCoach.ie | Designed by: Patrick Pulfer
             </div>
-        </div>
-
-    </section>
-
-    {% block content %}
-    {% endblock %}
-
-    <footer class="grid-footer">
-        <div class="container-fluid">
-            © 2021 Copyright: YourCoach.ie | Designed by: Patrick Pulfer
-        </div>
-    </footer>
+        </footer>
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-        crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='main.js') }}"></script>
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+            crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='main.js') }}"></script>
+    </body>
 
 </html>

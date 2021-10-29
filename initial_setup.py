@@ -4,7 +4,9 @@ import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-# MongoDB Setup
+"""
+Setting up the Database
+"""
 MONGO_URI = os.environ.get("MONGO_URI")
 DATABASE = "TheInterviewMasterDeck"
 COLLECTION = "Admin"
@@ -22,10 +24,7 @@ conn = mongo_connect(MONGO_URI)
 mongo_database = conn[DATABASE]
 
 
-# Get Datetime
 date_today = datetime.datetime.now()
-
-
 dblist = conn.list_database_names()
 print(' ')
 print('The')
@@ -49,7 +48,8 @@ if DATABASE in dblist:
         print("Error accessing the database")
 
     if doc:
-        print("\U0001F44D", "Setup is already complete! Default admin account detected!")
+        print("\U0001F44D", "Setup is already complete! \
+            Default admin account detected!")
         exit()
     if doc:
         print("\U0001F449",
@@ -99,10 +99,10 @@ if DATABASE in dblist:
             try:
                 mongo_collection.insert_one(new_doc)
                 print("\U0001F44F",
-                      "'settings' collection created & added instruction field!")
+                      "'settings' collection created & \
+                          added instruction field!")
             except:
                 print("Error accessing the database")
-            
             new_doc = {
                 "id": "cards_count",
                 "integer": 1,
@@ -110,7 +110,8 @@ if DATABASE in dblist:
             try:
                 mongo_collection.insert_one(new_doc)
                 print("\U0001F44F",
-                      "'settings' collection updated with question cards count!")
+                      "'settings' collection updated with \
+                          question cards count!")
             except:
                 print("Error accessing the database")
             print('')
@@ -119,6 +120,9 @@ if DATABASE in dblist:
         else:
             print('Password does not match! Please try again! Exiting...')
 else:
-    print("Database 'TheInterviewMasterDeck' not found. Please create a Database called 'TheInterviewMasterDeck' with a collection called 'admin' first before continuing. Exiting...")
+    print("Database 'TheInterviewMasterDeck' not found. \
+          Please create a Database called 'TheInterviewMasterDeck' \
+              with a collection called 'admin' \
+                  first before continuing. Exiting...")
 
 conn.close()

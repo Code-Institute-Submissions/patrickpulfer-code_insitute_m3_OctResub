@@ -1,52 +1,54 @@
 {% extends "base-user.html" %}
 {% block content %}
-<section class="container-fluid text-center">
-    <br>
-    <div class="swiper-container mySwiper">
-        <div class="swiper-wrapper">
-            {% for card in cards %}
-            <div class="swiper-slide">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h3 class="card-title text-primary text-start">{{ card.question }}</h3>
-                        <br><br>
-                        <i class="fas fa-stopwatch-20 fa-5x text-success"></i>
-                        <br><br>
-                        <p class="card-text text-start"><br>Tip: {{ card.tip }}</p>
-                        <br><br>
-                        <h6 class="card-subtitle mb-2 text-muted">Card: {{ card.id }}</h6>
+
+    <section class="container-fluid text-center">
+        <br>
+        <div class="swiper-container mySwiper">
+            <div class="swiper-wrapper">
+                {% for card in cards %}
+                <div class="swiper-slide">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title text-primary text-start">{{ card.question }}</h3>
+                            <br><br>
+                            <i class="fas fa-stopwatch-20 fa-5x text-success"></i>
+                            <br><br>
+                            <p class="card-text text-start"><br>Tip: {{ card.tip }}</p>
+                            <br><br>
+                            <h6 class="card-subtitle mb-2 text-muted">Card: {{ card.id }}</h6>
+                        </div>
                     </div>
                 </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
-<div class="container text-center">
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#searchmodal">
-        Search
-    </button>
-</div>
-
-<div class="modal fade" id="searchmodal" tabindex="-1" aria-labelledby="searchmodallabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="searchmodallabel">Search</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form class="container text-center" action="/search" method="GET">
-                    Enter your keyword to search for below:
-                    <br>
-                    <input class="form-control form-control-sm" type="text" placeholder="Keyword" name="keyword"
-                        id="keyword" required>
-                    <br>
-                    <button class="btn btn-success btn-sm" type="submit">Search</button>
-                </form>
+                {% endfor %}
             </div>
         </div>
+    </section>
+
+    <div class="container text-center">
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#searchmodal">
+            Search
+        </button>
     </div>
-</div>
+
+    <div class="modal fade" id="searchmodal" tabindex="-1" aria-labelledby="searchmodallabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="searchmodallabel">Search</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="container text-center" action="/search" method="GET">
+                        Enter your keyword to search for below:
+                        <br>
+                        <input class="form-control form-control-sm" type="text" placeholder="Keyword" name="keyword"
+                            id="keyword" required>
+                        <br>
+                        <button class="btn btn-success btn-sm" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 {% endblock %}

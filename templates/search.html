@@ -1,43 +1,43 @@
 {% extends "base-user.html" %}
 {% block content %}
 
-<section class="container-fluid text-center">
+    <section class="container-fluid text-center">
+        <br>
+        <div class="swiper-container mySwiper">
+            <div class="swiper-wrapper">
+                {% if cards|length %}
+                {% for card in cards %}
+                <div class="swiper-slide">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title text-primary text-start">{{ card.question }}</h3>
+                            <br><br>
+                            <i class="fas fa-stopwatch-20 fa-5x text-success"></i>
+                            <br><br>
+                            <p class="card-text text-start"><br>Tip: {{ card.tip }}</p>
+                            <br><br>
+                            <h6 class="card-subtitle mb-2 text-muted">Card: {{ card.id }}</h6>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="swiper-slide">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title">No card with keyword found</h3>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
     <br>
-    <div class="swiper-container mySwiper">
-        <div class="swiper-wrapper">
-            {% if cards|length %}
-            {% for card in cards %}
-            <div class="swiper-slide">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h3 class="card-title text-primary text-start">{{ card.question }}</h3>
-                        <br><br>
-                        <i class="fas fa-stopwatch-20 fa-5x text-success"></i>
-                        <br><br>
-                        <p class="card-text text-start"><br>Tip: {{ card.tip }}</p>
-                        <br><br>
-                        <h6 class="card-subtitle mb-2 text-muted">Card: {{ card.id }}</h6>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-            {% else %}
-            <div class="swiper-slide">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h3 class="card-title">No card with keyword found</h3>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
+    <div class="container text-center">
+        <div class="container">
+            <a href="/start" class="btn btn-success">Back</a>
         </div>
     </div>
-</section>
-<br>
-<div class="container text-center">
-    <div class="container">
-        <a href="/start" class="btn btn-success">Back</a>
-    </div>
-</div>
 
 {% endblock %}
