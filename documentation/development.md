@@ -213,6 +213,23 @@ To test the update Interview Question Card functionality, you may click on "Upda
 
 <br>
 
+### User Story testing
+
+Stakeholder, Administrator:  
+  <img src="./pictures/aggie_requirements.png" width="70%">
+1. Stakeholder has tested the app herself and noted it was easy to navigate (each page said what to do)
+2. Stakeholder has observed that cards were similar to the physical card deck available
+3. Stakeholder has observed that cards within the app were displaying a tip underneath of the actual query
+4. Stakeholder has observed that cards were displayed randomly (card ID are displayed on each card) 
+5. Stakeholder has observed search field would search based on keywords of the cards
+
+"Ability for the admin to store, add, hide, edit and delete Question Cards safely without other external interference"
+- Stakeholder has logged into the admin site and advised 
+
+"No user data should be recorded. Personal preferences or log in should not be required"
+- Stakeholder has noted there is no tracking feature as desired
+
+
 ## Feedback from Stakeholders
 
 ### Aggie, yourcoach.ie
